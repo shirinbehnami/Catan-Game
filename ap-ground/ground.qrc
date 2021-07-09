@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="blue">images/blue.png</file>
+        <file alias="empty">images/empty.png</file>
+        <file alias="red">images/red.png</file>
+        <file alias="grid">images/grid.png</file>
+        <file alias="selectable">images/selectable.png</file>
+        <file>image/agor.jpg</file>
+        <file>image/byaban.jpg</file>
+        <file>image/chob.jpg</file>
+        <file>image/gandom.jpg</file>
+        <file>image/gosepand.jpg</file>
+        <file>image/sang.jpg</file>
+        <file>image/water.jpg</file>
+    </qresource>
+</RCC>
