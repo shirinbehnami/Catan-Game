@@ -2,8 +2,8 @@
 
 hexagonal::hexagonal(QWidget *parent)
     : QPushButton(parent),
-      m_row(0), m_col(0)//,
-      //m_state(hexagonal::sang)
+      m_row(0), m_col(0),
+      m_state(hexagonal::water)
 {
     this->updateHexagonal(m_state);
 
@@ -23,18 +23,20 @@ void hexagonal::setState(State state) {
 
 QPixmap hexagonal::stateToPixmap(State state) {
     switch (state) {
-        case hexagonal::byaban:
-            return QPixmap(":/image/byaban.jpg");
-        case hexagonal::gandom:
-            return QPixmap(":/image/gandom.jpg");
-        case hexagonal::agor:
-            return QPixmap(":/image/agor.jpg");
-        case hexagonal::sang:
-            return QPixmap(":/image/sang.jpg");
-        case hexagonal::chob:
-            return QPixmap(":/image/chob.jpg");
-        case hexagonal::gosepand:
-            return QPixmap(":/image/gosepand.jpg");
+        case hexagonal::desert:
+            return QPixmap(":/image/desert.jpg");
+        case hexagonal::wheat:
+            return QPixmap(":/image/wheat.jpg");
+        case hexagonal::clay:
+            return QPixmap(":/image/clay.jpg");
+        case hexagonal::ore:
+            return QPixmap(":/image/ore.jpg");
+        case hexagonal::wood:
+            return QPixmap(":/image/wood.jpg");
+        case hexagonal::sheep:
+            return QPixmap(":/image/sheep.jpg");
+        case hexagonal::water:
+            return QPixmap(":/image/water.jpg");
         default:
             return QPixmap();
     }

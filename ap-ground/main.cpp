@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     ground w;
-    w.resize(750,750);
-    w.show();
+    //w.resize(900,800);
+    w.showMaximized();
     return a.exec();
 }

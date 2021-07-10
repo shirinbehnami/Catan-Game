@@ -13,12 +13,13 @@ class hexagonal:public QPushButton
 
 public:
     enum State {
-        byaban,
-        gandom,
-        agor,
-        sang,
-        chob,
-        gosepand
+        desert,
+        wheat,
+        clay,
+        ore,
+        wood,
+        sheep,
+        water
     };
     Q_ENUM(State)
 
