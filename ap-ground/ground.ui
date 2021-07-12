@@ -480,6 +480,9 @@
       <kerning>true</kerning>
      </font>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
     border: none;

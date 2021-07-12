@@ -1,7 +1,9 @@
 #include "ground.h"
 #include "ui_ground.h"
-
 #include "node.h"
+
+#include <QSize>
+
 ground::ground(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ground)
@@ -16,8 +18,7 @@ ground::ground(QWidget *parent)
         //QObject::connect(hex, SIGNAL(clicked(bool)), map, SLOT(map()));
         labels[id]=new QLabel(this);
         labels[id]-> setGeometry(QRect(m_hexagonal[id]->x()+40, m_hexagonal[id]->y()+50, 40, 30));
-        labels[id]->setStyleSheet("color:white;font:bold;"
- "font-size:25px;");
+        labels[id]->setStyleSheet("color:white;font:bold;""font-size:25px;");
     }
 
     for (int id = 0; id < water_num; ++id)
@@ -31,14 +32,19 @@ ground::ground(QWidget *parent)
 
     for (int id = 0; id < nodes_num; ++id)
     {
-       // node* n = this->findChild<node*>(QString("node%1").arg(id));
-       // Q_ASSERT(n != nullptr);
-       // m_nodes[id] = n;
+       //node* n = this->findChild<node*>(QString("node%1").arg(id));
+       //Q_ASSERT(n != nullptr);
+       //m_nodes[id] = n;
 
         m_nodes[id]=new node(this);
         Q_ASSERT(m_nodes[id] != nullptr);
-        m_nodes[id]->setStyleSheet("background-color:red;");
-        // m_nodes[id]->setState(node::house);
+        m_nodes[id]->setStyleSheet("border: none;outline: none");
+        m_nodes[id]->setFlat(true);
+        m_nodes[id]->setMinimumSize(QSize(40,40));
+        m_nodes[id]->setIconSize(QSize(30,30));
+        //m_nodes[id]->setSizeIncrement(5000,5000);
+        //m_nodes[id]->resize(1000,1000);
+        m_nodes[id]->setState(node::city);
     }
     int c;
     int idx=0;
@@ -68,7 +74,7 @@ ground::ground(QWidget *parent)
 
         this->adjustSize();
     int desert_index=makeground();
-   // setnumbers(desert_index);
+    //setnumbers(desert_index);
 
  }
 
