@@ -17,6 +17,7 @@ SOURCES += \
     node.cpp
 
 HEADERS += \
+    dice.h \
     ground.h \
     hexagonal.h \
     node.h
