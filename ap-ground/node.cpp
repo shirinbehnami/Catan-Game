@@ -2,10 +2,11 @@
 
 node::node(QWidget *parent)
     : QPushButton(parent),
-      m_row(0), m_col(0)
+      m_row(0), m_col(0),
+      m_state(house)
 {
-   // this->updatenode(m_state);
-    //QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatenode(State)));
+    this->setState(m_state);
+    QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatenode(State)));
 }
 
 node::~node() {}
@@ -13,24 +14,18 @@ node::~node() {}
 void node::setState(State state) {
     if (m_state != state) {
         m_state = state;
-       // emit stateChanged(state);
+        emit stateChanged(state);
     }
 }
 
 QPixmap node::stateToPixmap(State state) {
     switch (state) {
-        case node::byaban:
-            return QPixmap(":/image/byaban.jpg");
-        case node::gandom:
-            return QPixmap(":/image/gandom.jpg");
-        case node::agor:
-            return QPixmap(":/image/agor.jpg");
-        case node::sang:
-            return QPixmap(":/image/sang.jpg");
-        case node::chob:
-            return QPixmap(":/image/chob.jpg");
-        case node::gosepand:
-            return QPixmap(":/image/gosepand.jpg");
+        case node::house:
+            return QPixmap(":/image/house.jpg");
+        case node::city:
+            return QPixmap(":/image/city.jpg");
+       // case node::none:
+        //
         default:
             return QPixmap();
     }

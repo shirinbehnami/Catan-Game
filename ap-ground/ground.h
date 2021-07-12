@@ -16,9 +16,9 @@ QT_END_NAMESPACE
 
 #define hex_num 28
 #define water_num 42
-
+#define nodes_num 112
 class hexagonal;
-
+class node;
 class ground : public QMainWindow
 {
     Q_OBJECT
@@ -35,6 +35,7 @@ private:
     Ui::ground *ui;
     QLabel* labels[hex_num];
     hexagonal* m_hexagonal[hex_num];
+    node* m_nodes[nodes_num];
     hexagonal* m_water[42];
 };
 #endif // GROUND_H

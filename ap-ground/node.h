@@ -13,12 +13,9 @@ class node:public QPushButton
 
 public:
     enum State {
-        byaban,
-        gandom,
-        agor,
-        sang,
-        chob,
-        gosepand
+        house,
+        none,
+        city
     };
     Q_ENUM(State)
 

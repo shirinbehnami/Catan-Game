@@ -13,11 +13,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     hexagonal.cpp \
     main.cpp \
-    ground.cpp
+    ground.cpp \
+    node.cpp
 
 HEADERS += \
     ground.h \
-    hexagonal.h
+    hexagonal.h \
+    node.h
 
 FORMS += \
     ground.ui

@@ -1,7 +1,7 @@
 #include "ground.h"
 #include "ui_ground.h"
 
-
+#include "node.h"
 ground::ground(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ground)
@@ -29,9 +29,46 @@ ground::ground(QWidget *parent)
     }
 
 
-    this->adjustSize();
+    for (int id = 0; id < nodes_num; ++id)
+    {
+       // node* n = this->findChild<node*>(QString("node%1").arg(id));
+       // Q_ASSERT(n != nullptr);
+       // m_nodes[id] = n;
+
+        m_nodes[id]=new node(this);
+        Q_ASSERT(m_nodes[id] != nullptr);
+        m_nodes[id]->setStyleSheet("background-color:red;");
+        // m_nodes[id]->setState(node::house);
+    }
+    int c;
+    int idx=0;
+    for(int j=0;j<4;j++)
+    {for(int i=0;i<(11+2*j);i++)
+       {
+        if(i%2)
+            c=-1;
+        else
+            c=0;
+           m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
+        idx++;
+        }
+    }
+    for(int j=0;j<4;j++)
+    {for(int i=0;i<=(16-2*j);i++)
+       {
+        if(i%2)
+            c=-1;
+        else
+            c=0;
+         m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
+         idx++;
+        }
+    }
+
+
+        this->adjustSize();
     int desert_index=makeground();
-    setnumbers(desert_index);
+   // setnumbers(desert_index);
 
  }
 
@@ -135,7 +172,7 @@ void ground::setnumbers(int desert_index)
     };
     vector<int> indexes;
     vector<int> final;
-    for(int i=0;i<hex_num;i++)
+    for(int i=0;i<hex_num-1;i++)
      {   if(i!=desert_index && i<19)
             indexes.push_back(i);
         final.push_back(-1);
@@ -194,7 +231,7 @@ void ground::setnumbers(int desert_index)
     //-----------------------------------------------------------------------------------------------------
     //second part
     //6,8
-    int X=rand()%6+19;
+    int X=rand()%8+19;
     int Y=rand()%(28-X-2)+2;
     if(rand()%2)
     { final[X]=6;
