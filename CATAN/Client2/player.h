@@ -11,8 +11,13 @@ public:
     QTcpSocket* socket;
     explicit Player(QObject *parent = nullptr);
     void connect();
-    QString send(QString s);
+
+    void send(QString s);
+    QString recieve();
+
+
 };
+
 
 #endif // PLAYER_H
 

@@ -1,4 +1,5 @@
-#include "Player.h"
+#include "player.h"
+#include <QApplication>
 
 Player::Player(QObject *parent) : QObject(parent)
 {
@@ -10,19 +11,33 @@ void Player::connect(){
     if(socket->waitForConnected(3000)){
         qDebug()<<"connect!";
     }
-    else{
+    else
+    {
         qDebug()<<"not connect!";
+        QApplication::quit();
     }
 }
-QString Player::send(QString s)
+
+void Player::send(QString s)
 {
     QByteArray text;
     text=s.toUtf8();
     text+='\n';
     socket->write(text);
     socket->waitForBytesWritten(1000);
-    socket->waitForReadyRead(3000);
-    text =socket->readAll();
+}
+
+QString Player::recieve()
+{
+    QByteArray* text=new QByteArray();
+    socket->waitForReadyRead(60000);
+    *text =socket->readAll();
+    qDebug()<<*text;
+    return QString::fromUtf8(*text);
+
+    /*QByteArray text;
+    text.reserve(socket->bytesAvailable());
+    text = socket->readAll();
     qDebug()<<text;
-    return QString::fromUtf8(text);
+    return QString::fromUtf8(text);*/
 }
