@@ -1,0 +1,10 @@
+release/ground.o
+release/hexagonal.o
+release/main.o
+release/mainwindow.o
+release/player.o
+release/qrc_gr.o
+release/moc_ground.o
+release/moc_hexagonal.o
+release/moc_mainwindow.o
+release/moc_player.o
