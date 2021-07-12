@@ -26,21 +26,17 @@ void MainWindow::connection()
     P->send(input);
     QString output = P->recieve();
     QPalette *palette = new QPalette();
-    if(output=="1\n")
-    {
+    if(output=="1")
+        palette->setColor(QPalette::Base,Qt::red);
+    else if(output=="2")
+        palette->setColor(QPalette::Base,Qt::blue);
+    else if(output=="3")
         palette->setColor(QPalette::Base,Qt::yellow);
-    }
-    else if(output=="2\n")
-         palette->setColor(QPalette::Base,Qt::red);
-    else if(output=="3\n")
-         palette->setColor(QPalette::Base,Qt::blue);
-    else if(output=="4\n")
-         palette->setColor(QPalette::Base,Qt::green);
 
     ui->lineEdit_2->setPalette(*palette);
     ui->lineEdit_2->setText("This is your color:))");
 
-    if(output=="1\n")
+    if(output=="1")
         number_of_player();
     else
         make_ground();
@@ -79,9 +75,14 @@ void MainWindow::send_number_of_player()
 
 void MainWindow::make_ground()
 {
+
     QString output = P->recieve();
 
     G = new ground(output.toUtf8().constData());
+
+    G->showMaximized();
+
+    close();
 }
 
 MainWindow::~MainWindow()

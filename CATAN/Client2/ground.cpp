@@ -31,9 +31,17 @@ ground::ground(string s,QWidget *parent)
     this->adjustSize();
 
     string s1,s2;
-    sscanf_s(s.c_str(),"%s-%s",&s1,&s2);
-    setResources(s);
-    setnumbers(s);
+    int end= s.find('-');
+    s1=s.substr(0,end);
+    s2=s.substr(end+1,s.length());
+
+    qDebug()<<s1.c_str();
+    qDebug()<<s2.c_str();
+
+    setResources(s1);
+    setnumbers(s2);
+
+
 
  }
 
@@ -47,22 +55,22 @@ void ground::setResources(string s)
    for(int i=0;i<hex_num;i++)
    {
        switch (s[i]) {
-       case 1:
+       case '1':
            m_hexagonal[i]->setState(hexagonal::wood);
            break;
-       case 2:
+       case '2':
            m_hexagonal[i]->setState(hexagonal::sheep);
            break;
-       case 3:
+       case '3':
            m_hexagonal[i]->setState(hexagonal::ore);
            break;
-       case 4:
+       case '4':
            m_hexagonal[i]->setState(hexagonal::clay);
            break;
-       case 5:
+       case '5':
            m_hexagonal[i]->setState(hexagonal::wheat);
            break;
-       case 6:
+       case '6':
            m_hexagonal[i]->setState(hexagonal::desert);
            break;
        }
@@ -72,12 +80,18 @@ void ground::setnumbers(string s)
 {
     for(int i=0;i<hex_num;i++)
     {
-        int x;
-        sscanf_s(s.c_str(),"%d-%s",&x,&s);
-        if(x==-1)
+        if(s[0]!=-1)
         {
+            int end= s.find('-');
+            string s1=s.substr(0,end);
+            s=s.substr(end+1,s.length());
+            int x;
+            sscanf_s(s1.c_str(),"%d",&x);
+
             labels[i]->setText(QString::number(x));
             qDebug()<<QString::number(i)<<"----------"<<QString::number(x);
         }
+        else
+            s=s.substr(2,s.length());
     }
 }

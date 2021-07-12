@@ -218,7 +218,9 @@ Game::Game()
 		++idx;
 	}
 
-	//acc.close();
+	make_ground();
+	
+	acc.close();
 }
 Game::~Game()
 {
@@ -231,11 +233,11 @@ Game::~Game()
 void Game::make_ground()
 {
 	int desert_num = 0;
-	string s = "1";
-	//string s = gr->setResources(desert_num);
-	//gr->setnumbers(desert_num,s);
 
-	s += '\n';
+	string s = gr->setResources(desert_num);
+	gr->setnumbers(desert_num,s);
+
+	cout <<endl<< s;
 	for (int p_index = 0; p_index < client_num; p_index++)
 	{
 		write(*(P_list[p_index]->get_sock()), boost::asio::buffer(s));
@@ -248,6 +250,9 @@ void Game::number_of_player(int p_index)
 	read_until(*(P_list[p_index]->get_sock()), buff, '\n');
 	string msg = buffer_cast<const char*>(buff.data());
 	sscanf_s(msg.c_str(), "%d", &client_num);
+
+	//-----------------------
+	//client_num = 1;
 }
 void Game::recieve_name(int p_index)
 {
@@ -258,7 +263,7 @@ void Game::recieve_name(int p_index)
 	
 	//srand(time(0));
 	//int c = rand() % 3 + 1;
-	msg = to_string(p_index+1) + '\n';
+	msg = to_string(p_index+1);
 	cout << p_index+1;
 	write(*(P_list[p_index]->get_sock()), boost::asio::buffer(msg));
 	if (p_index == 0)
@@ -271,8 +276,6 @@ void Game::recieve_name(int p_index)
 int main()
 {
 	Game Catan;
-
-	Catan.make_ground();
 
 	return 0;
 }
