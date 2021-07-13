@@ -11,15 +11,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cards.cpp \
+    developmentcard.cpp \
     hexagonal.cpp \
     main.cpp \
     ground.cpp \
-    node.cpp
+    node.cpp \
+    sourcecard.cpp \
+    specialscorecard.cpp
 
 HEADERS += \
+    cards.h \
+    developmentcard.h \
     ground.h \
     hexagonal.h \
-    node.h
+    node.h \
+    sourcecard.h \
+    specialscorecard.h
 
 FORMS += \
     ground.ui
