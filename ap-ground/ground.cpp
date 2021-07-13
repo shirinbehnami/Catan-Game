@@ -1,7 +1,7 @@
 #include "ground.h"
 #include "ui_ground.h"
 #include "node.h"
-
+#include<QPainter>
 #include <QSize>
 
 ground::ground(QWidget *parent)
@@ -9,6 +9,7 @@ ground::ground(QWidget *parent)
     , ui(new Ui::ground)
 {
     ui->setupUi(this);
+    setwidgets();
     for (int id = 0; id < hex_num; ++id)
     {
         hexagonal* hex = this->findChild<hexagonal*>(QString("hex%1").arg(id));
@@ -68,10 +69,14 @@ ground::ground(QWidget *parent)
     }
 
 
-        this->adjustSize();
+    this->adjustSize();
     int desert_index=makeground();
     setnumbers(desert_index);
-
+    QPainter p;
+    p.drawLine(m_nodes[0]->x(),m_nodes[0]->y(),m_nodes[1]->x(),m_nodes[1]->y());
+    //----------------------------------------------------------------------------------------------------------
+    //Signals
+    connect(rollbtn,SIGNAL(released()),this,SLOT(roll()));
  }
 
 ground::~ground()
@@ -274,4 +279,70 @@ void ground::setnumbers(vector<int>final)
         labels[i]->setText(QString::number(final[i]));
         qDebug()<<QString::number(i)<<"----------"<<QString::number(final[i]);
         }
+}
+void ground::setdice(int a,int b)
+{
+    QString A="url(:/image/dice/"+QString::number(a)+".png);";
+    QString B="url(:/image/dice/"+QString::number(b)+".png);";
+    if(!a and !b)
+    {
+    dice[0]->setStyleSheet("QLabel{"
+                               "background-image:url(:/image/dice/1.png);"
+                               "background-position:center;"
+                               "background-origin:content;"
+                               "background-repeat:none;"
+                               "}");
+
+        dice[1]->setStyleSheet("QLabel{"
+                                   "background-image:url(:/image/dice/1.png);"
+                                   "background-position:center;"
+                                   "background-origin:content;"
+                                   "background-repeat:none;"
+                                   "}");
+
+    }
+    else
+    {
+        dice[0]->setStyleSheet("QLabel{"
+                                   "background-image:"+A
+                                   +"background-position:center;"
+                                   "background-origin:content;"
+                                   "background-repeat:none;"
+                                   "}");
+        dice[1]->setStyleSheet("QLabel{"
+                                       "background-image:"+B
+                                       +"background-position:center;"
+                                       "background-origin:content;"
+                                       "background-repeat:none;"
+                                       "}");
+
+
+    }
+
+
+}
+void ground::roll()
+{
+    srand(time(0));
+    int a=rand()%6+1;
+    int b=rand()%6+1;
+    setdice(a,b);
+}
+void ground::setwidgets()
+{
+    dice[0]=new QLabel(this);
+    dice[1]=new QLabel(this);
+    dice[0]->setGeometry(1200,520,125,125);
+    dice[1]->setGeometry(1060,520,125,125);
+    setdice(0,0);
+
+    rollbtn=new QPushButton(this);
+    rollbtn->setGeometry(950,520,100,40);
+    rollbtn->setText("Roll!");
+    rollbtn->setStyleSheet("background-color:rgb(181,144,246);");
+
+    nextturn=new QPushButton(this);
+    nextturn-> setGeometry(950,580,100,40);
+    nextturn->setText("Next Turn");
+    nextturn->setStyleSheet("background-color:rgb(208,22,53);");
 }

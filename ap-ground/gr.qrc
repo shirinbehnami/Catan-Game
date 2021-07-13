@@ -9,5 +9,11 @@
         <file>image/hexagonal/water.jpg</file>
         <file>image/hexagonal/wheat.jpg</file>
         <file>image/hexagonal/wood.jpg</file>
+        <file>image/dice/1.png</file>
+        <file>image/dice/2.png</file>
+        <file>image/dice/3.png</file>
+        <file>image/dice/4.png</file>
+        <file>image/dice/5.png</file>
+        <file>image/dice/6.png</file>
     </qresource>
 </RCC>
