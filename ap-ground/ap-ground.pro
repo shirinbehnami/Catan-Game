@@ -14,20 +14,26 @@ SOURCES += \
     cards.cpp \
     developmentcard.cpp \
     hexagonal.cpp \
+    knightcard.cpp \
     main.cpp \
     ground.cpp \
     node.cpp \
+    roadconstructioncard.cpp \
     sourcecard.cpp \
-    specialscorecard.cpp
+    specialscorecard.cpp \
+    yearofpenaltycard.cpp
 
 HEADERS += \
     cards.h \
     developmentcard.h \
     ground.h \
     hexagonal.h \
+    knightcard.h \
     node.h \
+    roadconstructioncard.h \
     sourcecard.h \
-    specialscorecard.h
+    specialscorecard.h \
+    yearofpenaltycard.h
 
 FORMS += \
     ground.ui

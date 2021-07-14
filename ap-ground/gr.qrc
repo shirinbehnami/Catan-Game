@@ -9,12 +9,12 @@
         <file>image/hexagonal/water.jpg</file>
         <file>image/hexagonal/wheat.jpg</file>
         <file>image/hexagonal/wood.jpg</file>
-        <file>image/cards/clay.png</file>
-        <file>image/cards/Knight.png</file>
-        <file>image/cards/ore.png</file>
-        <file>image/cards/RoadBuilder.png</file>
-        <file>image/cards/Sheep.png</file>
-        <file>image/cards/Wheat.png</file>
-        <file>image/cards/Wood.png</file>
+        <file>image/cards/clay.jpg</file>
+        <file>image/cards/LargestArmy.jpg</file>
+        <file>image/cards/ore.jpg</file>
+        <file>image/cards/RoadBuilder.jpg</file>
+        <file>image/cards/Sheep.jpg</file>
+        <file>image/cards/Wheat.jpg</file>
+        <file>image/cards/Wood.jpg</file>
     </qresource>
 </RCC>

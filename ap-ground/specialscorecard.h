@@ -6,11 +6,11 @@
 class SpecialScorecard : public cards
 {
     Q_OBJECT
-    Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
+    //Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
 
 public:
     enum State {
-        Knight,
+        LargestArmy,
         RoadBuilder
     };
     Q_ENUM(State)
@@ -24,13 +24,13 @@ public:
 signals:
 
 private:
+
     State m_state;
     int score;
 
     static QPixmap stateToPixmap(State state);
 
 private slots:
-    void updateHexagonal(State state);
 };
 
 #endif // SPECIALSCORECARD_H

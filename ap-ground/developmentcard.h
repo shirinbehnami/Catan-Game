@@ -6,6 +6,7 @@ class DevelopmentCard
 {
 public:
     DevelopmentCard();
+    virtual void use_card()=0;
 };
 
 #endif // DEVELOPMENTCARD_H

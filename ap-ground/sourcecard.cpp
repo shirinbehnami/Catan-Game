@@ -1,8 +1,9 @@
 #include "sourcecard.h"
 #include "QPushButton"
 
-SourceCard::SourceCard(State state)
-    :m_state(state)
+SourceCard::SourceCard(State state,QWidget *parent)
+    :cards(parent),
+      m_state(state)
 {
     this->updatecard(m_state);
 
@@ -22,17 +23,21 @@ void SourceCard::setState(State state) {
 QPixmap SourceCard::stateToPixmap(State state) {
     switch (state) {
         case SourceCard::wheat:
-            return QPixmap(":/image/cards/Wheat.png");
+            return QPixmap(":/image/cards/Wheat.jpg");
         case SourceCard::clay:
-            return QPixmap(":/image/cards/clay.png");
+            return QPixmap(":/image/cards/clay.jpg");
         case SourceCard::ore:
-            return QPixmap(":/image/cards/ore.png");
+            return QPixmap(":/image/cards/ore.jpg");
         case SourceCard::wood:
-            return QPixmap(":/image/cards/Wood.png");
+            return QPixmap(":/image/cards/Wood.jpg");
         case SourceCard::sheep:
-            return QPixmap(":/image/cards/Sheep.png");
+            return QPixmap(":/image/cards/Sheep.jpg");
         default:
             return QPixmap();
     }
 
+}
+
+void SourceCard::updatecard(State state) {
+    this->setIcon(SourceCard::stateToPixmap(state));
 }

@@ -1,6 +1,7 @@
 #include "ground.h"
 #include "ui_ground.h"
 #include "node.h"
+#include "sourcecard.h"
 
 #include <QSize>
 
@@ -72,6 +73,23 @@ ground::ground(QWidget *parent)
     }
 
 
+
+    cr.push_back(new SourceCard(SourceCard::clay,this));
+    cr.push_back(new SourceCard(SourceCard::ore,this));
+    cr.push_back(new SourceCard(SourceCard::ore,this));
+    cr.push_back(new SourceCard(SourceCard::sheep,this));
+
+    cr[0]->setGeometry(900,250,12,12);
+    cr[1]->setGeometry(950,250,12,12);
+    cr[2]->setGeometry(1000,250,12,12);
+    cr[3]->setGeometry(1050,250,12,12);
+
+    for(int i=0;i<cr.size();i++)
+    {
+        cr[i]->setFlat(true);
+        cr[i]->setMinimumSize(QSize(80,150));
+        cr[i]->setIconSize(QSize(70,210));
+    }
         this->adjustSize();
     int desert_index=makeground();
     //setnumbers(desert_index);

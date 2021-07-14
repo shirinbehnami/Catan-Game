@@ -19,6 +19,7 @@ QT_END_NAMESPACE
 #define nodes_num 112
 class hexagonal;
 class node;
+class cards;
 class ground : public QMainWindow
 {
     Q_OBJECT
@@ -37,5 +38,7 @@ private:
     hexagonal* m_hexagonal[hex_num];
     node* m_nodes[nodes_num];
     hexagonal* m_water[42];
+
+    vector<cards*> cr;
 };
 #endif // GROUND_H

@@ -11,10 +11,10 @@ SpecialScorecard::~SpecialScorecard() {}
 
 QPixmap SpecialScorecard::stateToPixmap(State state) {
     switch (state) {
-        case SpecialScorecard::Knight:
-            return QPixmap(":/image/cards/Knight.png");
+        case SpecialScorecard::LargestArmy:
+            return QPixmap(":/image/cards/LargestArmy.jpg");
         case SpecialScorecard::RoadBuilder:
-            return QPixmap(":/image/cards/RoadBuilder.png");
+            return QPixmap(":/image/cards/RoadBuilder.jpg");
         default:
             return QPixmap();
     }

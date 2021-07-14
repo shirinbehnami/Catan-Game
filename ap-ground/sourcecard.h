@@ -18,8 +18,8 @@ public:
     };
     Q_ENUM(State)
 
-    explicit SourceCard(State state);
-    virtual ~SourceCard();
+    explicit SourceCard(State state,QWidget *parent = nullptr);
+    ~SourceCard();
 
     State state() const { return m_state; }
     void setState(State State);

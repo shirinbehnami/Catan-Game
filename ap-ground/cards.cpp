@@ -5,3 +5,6 @@ cards::cards(QWidget *parent)
 {
 }
 
+cards::~cards()
+{
+}
