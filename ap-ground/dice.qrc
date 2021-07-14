@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dice.qrc</file>
+    </qresource>
+</RCC>

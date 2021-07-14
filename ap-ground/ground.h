@@ -31,6 +31,8 @@ public:
     int makeground();
     void setnumbers(vector<int>final);
     void setnumbers(int desert_index);
+    void setdice(int a,int b);
+    void setwidgets();
 
 private:
     Ui::ground *ui;
@@ -38,7 +40,15 @@ private:
     hexagonal* m_hexagonal[hex_num];
     node* m_nodes[nodes_num];
     hexagonal* m_water[42];
+<<<<<<< HEAD
 
     vector<cards*> cr;
+=======
+    QLabel* dice[2];
+    QPushButton* rollbtn;
+    QPushButton* nextturn;
+public slots:
+    void roll();
+>>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
 };
 #endif // GROUND_H

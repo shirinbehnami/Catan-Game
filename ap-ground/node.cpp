@@ -3,7 +3,6 @@
 node::node(QWidget *parent)
     : QPushButton(parent),
       m_row(0), m_col(0)
-      ,m_state(house)
 {
     this->updatenode(m_state);
     QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatenode(State)));

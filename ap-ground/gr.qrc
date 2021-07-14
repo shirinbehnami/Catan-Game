@@ -9,6 +9,7 @@
         <file>image/hexagonal/water.jpg</file>
         <file>image/hexagonal/wheat.jpg</file>
         <file>image/hexagonal/wood.jpg</file>
+<<<<<<< HEAD
         <file>image/cards/clay.jpg</file>
         <file>image/cards/LargestArmy.jpg</file>
         <file>image/cards/ore.jpg</file>
@@ -16,5 +17,13 @@
         <file>image/cards/Sheep.jpg</file>
         <file>image/cards/Wheat.jpg</file>
         <file>image/cards/Wood.jpg</file>
+=======
+        <file>image/dice/1.png</file>
+        <file>image/dice/2.png</file>
+        <file>image/dice/3.png</file>
+        <file>image/dice/4.png</file>
+        <file>image/dice/5.png</file>
+        <file>image/dice/6.png</file>
+>>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
     </qresource>
 </RCC>
