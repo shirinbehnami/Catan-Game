@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.15.0, 2021-07-13T20:14:50. -->
-=======
-<!-- Written by QtCreator 4.15.0, 2021-07-12T23:04:39. -->
->>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
+<!-- Written by QtCreator 4.15.0, 2021-07-14T15:23:20. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -88,6 +84,9 @@
     <valuelist type="QVariantList" key="ClangTools.SelectedFiles"/>
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
     <value type="bool" key="ClangTools.UseGlobalSettings">true</value>
+   </valuemap>
+   <valuemap type="QVariantMap" key="CppEditor.QuickFix">
+    <value type="bool" key="UseGlobalSettings">true</value>
    </valuemap>
   </valuemap>
  </data>
@@ -299,13 +298,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">ap-ground2</value>
-<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:E:/c++/final ap project/AP-Project/ap-ground/ap-ground.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">E:/c++/final ap project/AP-Project/ap-ground/ap-ground.pro</value>
-=======
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/user/Desktop/AP-Project/ap-ground/ap-ground.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/user/Desktop/AP-Project/ap-ground/ap-ground.pro</value>
->>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

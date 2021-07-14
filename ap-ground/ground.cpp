@@ -1,12 +1,9 @@
 #include "ground.h"
 #include "ui_ground.h"
 #include "node.h"
-<<<<<<< HEAD
 #include "sourcecard.h"
 
-=======
 #include<QPainter>
->>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
 #include <QSize>
 
 ground::ground(QWidget *parent)
@@ -74,17 +71,20 @@ ground::ground(QWidget *parent)
     }
 
 
-<<<<<<< HEAD
+    QLabel* l1;
+    l1=new QLabel(this);
+    l1-> setGeometry(QRect(950, 375, 375, 125));
+    l1->setStyleSheet("background-color:rgb(181,144,246);");
 
     cr.push_back(new SourceCard(SourceCard::clay,this));
     cr.push_back(new SourceCard(SourceCard::ore,this));
     cr.push_back(new SourceCard(SourceCard::ore,this));
     cr.push_back(new SourceCard(SourceCard::sheep,this));
 
-    cr[0]->setGeometry(900,250,12,12);
-    cr[1]->setGeometry(950,250,12,12);
-    cr[2]->setGeometry(1000,250,12,12);
-    cr[3]->setGeometry(1050,250,12,12);
+    cr[0]->setGeometry(1100,365,12,12);
+    cr[1]->setGeometry(950,365,12,12);
+    cr[2]->setGeometry(1000,365,12,12);
+    cr[3]->setGeometry(1050,365,12,12);
 
     for(int i=0;i<cr.size();i++)
     {
@@ -92,10 +92,9 @@ ground::ground(QWidget *parent)
         cr[i]->setMinimumSize(QSize(80,150));
         cr[i]->setIconSize(QSize(70,210));
     }
-        this->adjustSize();
-=======
+
     this->adjustSize();
->>>>>>> 9f938246a3f9f4305bfe59badc7243ffe9ddd77c
+
     int desert_index=makeground();
     setnumbers(desert_index);
     QPainter p;
