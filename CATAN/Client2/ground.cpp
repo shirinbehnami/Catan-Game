@@ -38,8 +38,8 @@ ground::ground(string s,QWidget *parent)
     qDebug()<<s1.c_str();
     qDebug()<<s2.c_str();
 
-    setResources(s1);
-    setnumbers(s2);
+    int desert_num=setResources(s1);
+    setnumbers(s2,desert_num);
 
 
 
@@ -50,8 +50,9 @@ ground::~ground()
     delete ui;
 }
 
-void ground::setResources(string s)
+int ground::setResources(string s)
 {
+    int return_value;
    for(int i=0;i<hex_num;i++)
    {
        switch (s[i]) {
@@ -72,11 +73,13 @@ void ground::setResources(string s)
            break;
        case '6':
            m_hexagonal[i]->setState(hexagonal::desert);
+           return_value=i;
            break;
        }
    }
+   return return_value;
 }
-void ground::setnumbers(string s)
+void ground::setnumbers(string s,int desert_num)
 {
     for(int i=0;i<hex_num;i++)
     {
@@ -87,8 +90,8 @@ void ground::setnumbers(string s)
             s=s.substr(end+1,s.length());
             int x;
             sscanf_s(s1.c_str(),"%d",&x);
-
-            labels[i]->setText(QString::number(x));
+            if(i!=desert_num)
+                labels[i]->setText(QString::number(x));
             qDebug()<<QString::number(i)<<"----------"<<QString::number(x);
         }
         else

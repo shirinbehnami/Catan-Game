@@ -24,6 +24,7 @@ private:
 
     void number_of_player();
     void make_ground();
+    void send_nonesense();
 public slots:
     void connection();
     void send_number_of_player();

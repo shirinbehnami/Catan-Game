@@ -27,8 +27,8 @@ public:
     ground(string s,QWidget *parent = nullptr);
     ~ground();
 
-    void setResources(string s);
-    void setnumbers(string s);
+    int setResources(string s);
+    void setnumbers(string s,int desert_num);
 
 private:
     Ui::ground *ui;

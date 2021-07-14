@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QTimer>
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,6 +25,7 @@ void MainWindow::connection()
     QString input=ui->lineEdit->text();
     P->send(input);
     QString output = P->recieve();
+    qDebug()<<output;
     QPalette *palette = new QPalette();
     if(output=="1")
         palette->setColor(QPalette::Base,Qt::red);
@@ -39,7 +40,10 @@ void MainWindow::connection()
     if(output=="1")
         number_of_player();
     else
+    {
+        //send_nonesense();
         make_ground();
+    }
 
 }
 
@@ -75,7 +79,6 @@ void MainWindow::send_number_of_player()
 
 void MainWindow::make_ground()
 {
-
     QString output = P->recieve();
 
     G = new ground(output.toUtf8().constData());
@@ -89,4 +92,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+void MainWindow::send_nonesense()
+{
+    _sleep(1000);
+    QString s="nonesense";
+    P->send(s);
+}

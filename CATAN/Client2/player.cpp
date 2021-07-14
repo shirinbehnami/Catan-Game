@@ -24,13 +24,13 @@ void Player::send(QString s)
     text=s.toUtf8();
     text+='\n';
     socket->write(text);
-    socket->waitForBytesWritten(1000);
+   // socket->waitForBytesWritten(1000);
 }
 
 QString Player::recieve()
 {
     QByteArray* text=new QByteArray();
-    socket->waitForReadyRead(60000);
+    socket->waitForReadyRead(100000);
     *text =socket->readAll();
     qDebug()<<*text;
     return QString::fromUtf8(*text);

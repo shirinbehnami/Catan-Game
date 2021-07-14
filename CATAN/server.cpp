@@ -13,7 +13,7 @@ class ground
 {
 public:
 	string setResources(int& desert_index);
-	void setnumbers(int desert_index, string &s);
+	void setnumbers(int desert_index, string& s);
 private:
 	int hex_num = 28;
 	int water_num = 2;
@@ -23,7 +23,7 @@ string ground::setResources(int& desert_index)
 {
 	srand(time(0));
 	string s;
-	
+
 	//first part
 	//1.wood  2.sheep   3.ore    4.clay    5.wheat  6.desert
 	vector<char> vec = { '1','1','1',
@@ -44,7 +44,7 @@ string ground::setResources(int& desert_index)
 	}
 
 	//second part
-	vec = {'1','1',
+	vec = { '1','1',
 		 '2','2',
 		 '3','3',
 		 '4','4',
@@ -92,22 +92,23 @@ void ground::setnumbers(int desert_index, string& s)
 						9,9,
 						10,
 						11,11 };//+6,6,8,8
-	vector<int> numbers_islands = { 2,4,5,9,10,10,11 };//+6,8
+	vector<int> numbers_islands = { 11,2,4,5,9,10,10 };//+6,8
 	random_shuffle(indexes.begin(), indexes.end());
+	vector<int> V;
 	//6
 	final[indexes[0]] = 6;
-	final[indexes[1]] = 6;
+	V.push_back(indexes[0]);
 	//8
-	int numberof8 = 0;
-	for (int i = 0; i < 19 && numberof8 != 2; i++)
+	int numberof8 = 0, numberof6 = 0;
+	for (int i = 1; i < 18 && (numberof8 != 2 || numberof6 != 1); i++)
 	{
 		bool flag = true;
-		for (int j = 0; j < 2 && flag; j++)
+		for (vector<int>::iterator j = V.begin(); j != V.end(); j++)
 		{
 			int T;
-			indexes[j] > 9 ? T = 18 - indexes[j] : T = indexes[j];
+			*j > 9 ? T = 18 - (*j) : T = (*j);
 			for (vector<int>::iterator it = neighbers[T].begin(); it != neighbers[T].end(); it++)
-				if (indexes[j] > 9)
+				if (*j > 9)
 				{
 					if (*it == 18 - indexes[i])
 					{
@@ -127,8 +128,17 @@ void ground::setnumbers(int desert_index, string& s)
 		}
 		if (flag && final[indexes[i]] == -1)
 		{
-			final[indexes[i]] = 8;
-			numberof8++;
+			if (numberof6 == 0)
+			{
+				final[indexes[i]] = 6;
+				numberof6++;
+			}
+			else
+			{
+				final[indexes[i]] = 8;
+				numberof8++;
+			}
+			V.push_back(indexes[i]);
 		}
 	}
 	//other numbers
@@ -139,10 +149,11 @@ void ground::setnumbers(int desert_index, string& s)
 			final[indexes[i]] = numbers[j];
 			j++;
 		}
+	cout << "done";
 	//-----------------------------------------------------------------------------------------------------
 	//second part
 	//6,8
-	int X = rand() % 6 + 19;
+	int X = rand() % 8 + 19;
 	int Y = rand() % (28 - X - 2) + 2;
 	if (rand() % 2)
 	{
@@ -154,15 +165,16 @@ void ground::setnumbers(int desert_index, string& s)
 		final[X] = 8;
 		final[X + Y] = 6;
 	}
+	//other numbers
 	random_shuffle(numbers_islands.begin(), numbers_islands.end());
 	j = 0;
 	for (int i = 19; i < hex_num; i++)
-		if (final[i] == -1 && i != desert_index)
+		if (final[i] == -1)
 		{
 			final[i] = numbers_islands[j];
 			j++;
 		}
-
+	final[desert_index] = 0;
 
 	for (int i = 0; i < final.size(); i++)
 	{
@@ -211,15 +223,12 @@ Game::Game()
 	int idx = 0;
 	while (idx < client_num)
 	{
-		P_list.push_back(new Player(ref(io),ref(acc)));
-
+		P_list.push_back(new Player(ref(io), ref(acc)));
 		recieve_name(idx);
-
 		++idx;
 	}
-
 	make_ground();
-	
+
 	acc.close();
 }
 Game::~Game()
@@ -235,9 +244,9 @@ void Game::make_ground()
 	int desert_num = 0;
 
 	string s = gr->setResources(desert_num);
-	gr->setnumbers(desert_num,s);
+	gr->setnumbers(desert_num, s);
 
-	cout <<endl<< s;
+	cout << endl << s;
 	for (int p_index = 0; p_index < client_num; p_index++)
 	{
 		write(*(P_list[p_index]->get_sock()), boost::asio::buffer(s));
@@ -260,17 +269,23 @@ void Game::recieve_name(int p_index)
 	read_until(*(P_list[p_index]->get_sock()), buff, '\n');
 	string msg = buffer_cast<const char*>(buff.data());
 	P_list[p_index]->set_name(msg);
-	
+
 	//srand(time(0));
 	//int c = rand() % 3 + 1;
-	msg = to_string(p_index+1);
-	cout << p_index+1;
+	msg = to_string(p_index + 1);
+	cout << p_index + 1;
 	write(*(P_list[p_index]->get_sock()), boost::asio::buffer(msg));
 	if (p_index == 0)
 	{
 		number_of_player(p_index);
 	}
-	
+	//else
+	//{
+	//	Sleep(1000);
+	//	read_until(*(P_list[p_index]->get_sock()), buff, '\n');
+	//	string test = buffer_cast<const char*>(buff.data());
+	//	cout << test;
+	//}
 }
 
 int main()
