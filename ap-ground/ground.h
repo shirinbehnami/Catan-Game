@@ -16,7 +16,7 @@ QT_END_NAMESPACE
 
 #define hex_num 28
 #define water_num 42
-#define nodes_num 112
+#define nodes_num 95
 class hexagonal;
 class node;
 class cards;

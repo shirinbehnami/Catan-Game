@@ -48,25 +48,33 @@ ground::ground(QWidget *parent)
     int c;
     int idx=0;
     for(int j=0;j<4;j++)
-    {for(int i=0;i<(11+2*j);i++)
+    {
+        for(int i=0;i<(11+2*j);i++)
        {
-        if(i%2)
-            c=-1;
-        else
-            c=0;
-           m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
-        idx++;
+            if((j==0 && i!=5 && i!=9 && i!=10) || (j==1 && i!=0 && i!=6) || (j==2 && i!=0 && i!=1 && i!=14) || (j==3 && i!=0 && i!=1 && i!=15 && i!=16))
+            {
+                if(i%2)
+                    c=-1;
+                else
+                    c=0;
+                   m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
+                idx++;
+            }
         }
     }
     for(int j=0;j<4;j++)
-    {for(int i=0;i<=(16-2*j);i++)
+    {
+       for(int i=0;i<=(16-2*j);i++)
        {
-        if(i%2)
-            c=-1;
-        else
-            c=0;
-         m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
-         idx++;
+           if((j==0 && i!=0 && i!=15 && i!=16) || (j==1 && i!=14) || (j==2) ||(j==3 && i!=7))
+           {
+                if(i%2)
+                    c=-1;
+                else
+                    c=0;
+                 m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
+                 idx++;
+           }
         }
     }
 
