@@ -30,6 +30,7 @@ public:
 private:
     QTcpSocket* socket;
     int myplayernum;
+    int score;
 
     QColor mycolor;
 

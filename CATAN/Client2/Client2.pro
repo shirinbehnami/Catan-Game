@@ -13,8 +13,10 @@ SOURCES += \
     card/card.cpp \
     card/sourcecard.cpp \
     card/specialscorecard.cpp \
+    game.cpp \
     ground/ground.cpp \
     ground/hexagonal.cpp \
+    ground/node.cpp \
     main.cpp \
     mainwindow.cpp \
     player.cpp
@@ -23,8 +25,10 @@ HEADERS += \
     card/card.h \
     card/sourcecard.h \
     card/specialscorecard.h \
+    game.h \
     ground/ground.h \
     ground/hexagonal.h \
+    ground/node.h \
     mainwindow.h \
     player.h
 

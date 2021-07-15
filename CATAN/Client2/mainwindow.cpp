@@ -79,9 +79,9 @@ void MainWindow::make_ground()
 
     QString output = P->recieve();
 
-    G = new ground(output.toUtf8().constData());
+    G = new game(output.toUtf8().constData(),P);
 
-    G->showMaximized();
+    G->show();
 
     close();
 }

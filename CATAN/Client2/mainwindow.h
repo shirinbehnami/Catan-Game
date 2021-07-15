@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "player.h"
 #include "ground/ground.h"
+#include "game.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,7 +21,7 @@ public:
 private:
     Ui::MainWindow *ui;
     Player* P;
-    ground* G;
+    game* G;
 
     void number_of_player(); 
     void make_ground();

@@ -8,7 +8,8 @@
 using namespace std;
 using namespace boost::asio;
 using namespace ip;
-
+//---------------------------------------------------------------------------------------------------------------------
+//ground
 class ground
 {
 public:
@@ -62,7 +63,7 @@ string ground::setResources(int& desert_index)
 void ground::setnumbers(int desert_index, string& s)
 {
 	srand(time(0));
-	//------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------
 	//first part
 	vector< vector<int> > neighbers = {
 		/*0*/ {1,3,4},
@@ -150,10 +151,10 @@ void ground::setnumbers(int desert_index, string& s)
 			j++;
 		}
 	cout << "done";
-	//-----------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------
 	//second part
 	//6,8
-	int X = rand() % 8 + 19;
+	int X = rand() % 7 + 19;
 	int Y = rand() % (28 - X - 2) + 2;
 	if (rand() % 2)
 	{
@@ -182,7 +183,8 @@ void ground::setnumbers(int desert_index, string& s)
 		s += to_string(final[i]);
 	}
 }
-
+//---------------------------------------------------------------------------------------------------------------------
+//player
 class Player
 {
 public:
@@ -195,7 +197,8 @@ private:
 	tcp::socket sock;
 	string name;
 };
-
+//----------------------------------------------------------------------------------------------------------------------
+//game
 class Game
 {
 public:
@@ -203,9 +206,12 @@ public:
 	~Game();
 
 	void make_ground();
+	void broadcast(int index,string msg);
 private:
 	void number_of_player(int p_index);
 	void recieve_name(int p_index);
+	void opening();
+	//void play();
 
 	int client_num;
 	vector<Player*> P_list;
@@ -229,15 +235,20 @@ Game::Game()
 	}
 
 	acc.close();
-
+	
 	make_ground();
+	
+	opening();
+	
+	//play();
+
 }
 Game::~Game()
 {
-	for (int i = 0; i < client_num; ++i)
-	{
-		trds[i]->join();
-	}
+	//for (int i = 0; i < client_num; ++i)
+	//{
+	//	trds[i]->join();
+	//}
 }
 
 void Game::make_ground()
@@ -288,7 +299,24 @@ void Game::recieve_name(int p_index)
 	//	cout << test;
 	//}
 }
+void Game::opening()
+{
+	int p_index = 0;
 
+	//for (int p_index = 0; p_index < client_num; p_index++)
+	{
+		boost::asio::streambuf buff;
+		write(*(P_list[p_index]->get_sock()), boost::asio::buffer("1\n"));
+		string msg = buffer_cast<const char*>(buff.data());
+		broadcast(p_index,msg);
+	}
+}
+void Game::broadcast(int index,string msg)
+{
+	for (int p_index = 0; p_index < client_num; p_index++)
+		if(p_index!=index)
+			write(*(P_list[p_index]->get_sock()), boost::asio::buffer(msg));
+}
 int main()
 {
 	Game Catan;
