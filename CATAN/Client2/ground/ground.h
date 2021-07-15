@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <time.h>
 #include <QLabel>
+
 using namespace std;
 QT_BEGIN_NAMESPACE
 namespace Ui { class ground; }

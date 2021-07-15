@@ -227,9 +227,10 @@ Game::Game()
 		recieve_name(idx);
 		++idx;
 	}
-	make_ground();
 
 	acc.close();
+
+	make_ground();
 }
 Game::~Game()
 {

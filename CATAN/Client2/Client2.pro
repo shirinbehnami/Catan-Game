@@ -10,15 +10,21 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ground.cpp \
-    hexagonal.cpp \
+    card/card.cpp \
+    card/sourcecard.cpp \
+    card/specialscorecard.cpp \
+    ground/ground.cpp \
+    ground/hexagonal.cpp \
     main.cpp \
     mainwindow.cpp \
     player.cpp
 
 HEADERS += \
-    ground.h \
-    hexagonal.h \
+    card/card.h \
+    card/sourcecard.h \
+    card/specialscorecard.h \
+    ground/ground.h \
+    ground/hexagonal.h \
     mainwindow.h \
     player.h
 

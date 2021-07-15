@@ -24,19 +24,19 @@ void hexagonal::setState(State state) {
 QPixmap hexagonal::stateToPixmap(State state) {
     switch (state) {
         case hexagonal::desert:
-            return QPixmap(":/image/desert.jpg");
+            return QPixmap(":/image/hexagonal/desert.jpg");
         case hexagonal::wheat:
-            return QPixmap(":/image/wheat.jpg");
+            return QPixmap(":/image/hexagonal/wheat.jpg");
         case hexagonal::clay:
-            return QPixmap(":/image/clay.jpg");
+            return QPixmap(":/image/hexagonal/clay.jpg");
         case hexagonal::ore:
-            return QPixmap(":/image/ore.jpg");
+            return QPixmap(":/image/hexagonal/ore.jpg");
         case hexagonal::wood:
-            return QPixmap(":/image/wood.jpg");
+            return QPixmap(":/image/hexagonal/wood.jpg");
         case hexagonal::sheep:
-            return QPixmap(":/image/sheep.jpg");
+            return QPixmap(":/image/hexagonal/sheep.jpg");
         case hexagonal::water:
-            return QPixmap(":/image/water.jpg");
+            return QPixmap(":/image/hexagonal/water.jpg");
         default:
             return QPixmap();
     }

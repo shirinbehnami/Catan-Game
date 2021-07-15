@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QTimer>
 #include <QMessageBox>
 
@@ -18,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
         connection();
     });
 
-    //connect(ui->Sendbtn,SIGNAL(pressed()),this,SLOT(connection()));
 }
 void MainWindow::connection()
 {
@@ -26,13 +26,11 @@ void MainWindow::connection()
     P->send(input);
     QString output = P->recieve();
     qDebug()<<output;
+
+    P->set_playernum(output.toInt());
+
     QPalette *palette = new QPalette();
-    if(output=="1")
-        palette->setColor(QPalette::Base,Qt::red);
-    else if(output=="2")
-        palette->setColor(QPalette::Base,Qt::blue);
-    else if(output=="3")
-        palette->setColor(QPalette::Base,Qt::yellow);
+    palette->setColor(QPalette::Base,P->get_color());
 
     ui->lineEdit_2->setPalette(*palette);
     ui->lineEdit_2->setText("This is your color:))");
@@ -40,10 +38,7 @@ void MainWindow::connection()
     if(output=="1")
         number_of_player();
     else
-    {
-        //send_nonesense();
         make_ground();
-    }
 
 }
 
@@ -51,8 +46,6 @@ void MainWindow::number_of_player()
 {
     ui->label->setText("Specify the number of players (3 or 4)");
     ui->lineEdit->clear();
-
-    //connect(ui->Sendbtn,SIGNAL(pressed()),this,SLOT(send_number_of_player()));
 
     QMetaObject::Connection * const c = new QMetaObject::Connection;
     *c = connect(ui->Sendbtn, &QPushButton::pressed, [this,c](){
@@ -79,6 +72,11 @@ void MainWindow::send_number_of_player()
 
 void MainWindow::make_ground()
 {
+    ui->label->setText("Wait for the other players to login");
+    ui->label->setStyleSheet("color:red;font:bold;""font-size:15px;");
+
+    qApp->processEvents();
+
     QString output = P->recieve();
 
     G = new ground(output.toUtf8().constData());
@@ -92,9 +90,4 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::send_nonesense()
-{
-    _sleep(1000);
-    QString s="nonesense";
-    P->send(s);
-}
+
