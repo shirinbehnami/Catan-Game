@@ -30,7 +30,7 @@ void Player::send(QString s)
 QString Player::recieve()
 {
     QByteArray* text=new QByteArray();
-    socket->waitForReadyRead(100000);
+    socket->waitForReadyRead(120000);
     *text =socket->readAll();
     qDebug()<<*text;
     return QString::fromUtf8(*text);

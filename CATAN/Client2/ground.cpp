@@ -27,7 +27,44 @@ ground::ground(string s,QWidget *parent)
         m_water[id] = w;
     }
 
+    for (int id = 0; id < nodes_num; ++id)
+    {
+        m_nodes[id]=new node(this);
+        Q_ASSERT(m_nodes[id] != nullptr);
+       // m_nodes[id]->setStyleSheet("border: none;outline: none");
+       // m_nodes[id]->setFlat(true);
+       // m_nodes[id]->setMinimumSize(QSize(25,30));
+        //m_nodes[id]->setIconSize(QSize(40,40));
+        //m_nodes[id]->setState(node::house);
+        m_nodes[id]->setStyleSheet("background-color:black;");
+        m_nodes[id]->setEnabled(false);
+        connect(m_nodes[id],SIGNAL(clicked()),m_nodes[id],SLOT(ChangeColor()));
+    }
 
+    int c;
+    int idx=0;
+    for(int j=0;j<4;j++)
+    {for(int i=0;i<(11+2*j);i++)
+       {
+        if(i%2)
+            c=-1;
+        else
+            c=0;
+           m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
+        idx++;
+        }
+    }
+    for(int j=0;j<4;j++)
+    {for(int i=0;i<=(16-2*j);i++)
+       {
+        if(i%2)
+            c=-1;
+        else
+            c=0;
+         m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
+         idx++;
+        }
+    }
     this->adjustSize();
 
     string s1,s2;
@@ -41,7 +78,7 @@ ground::ground(string s,QWidget *parent)
     int desert_num=setResources(s1);
     setnumbers(s2,desert_num);
 
-
+//-------------------SIGNALS---------------------------
 
  }
 
@@ -97,4 +134,79 @@ void ground::setnumbers(string s,int desert_num)
         else
             s=s.substr(2,s.length());
     }
+}
+void ground::setdice(int a,int b)
+{
+    QString A="url(:/image/dice/"+QString::number(a)+".png);";
+    QString B="url(:/image/dice/"+QString::number(b)+".png);";
+    if(!a and !b)
+    {
+    dice[0]->setStyleSheet("QLabel{"
+                               "background-image:url(:/image/dice/1.png);"
+                               "background-position:center;"
+                               "background-origin:content;"
+                               "background-repeat:none;"
+                               "}");
+
+        dice[1]->setStyleSheet("QLabel{"
+                                   "background-image:url(:/image/dice/1.png);"
+                                   "background-position:center;"
+                                   "background-origin:content;"
+                                   "background-repeat:none;"
+                                   "}");
+
+    }
+    else
+    {
+        dice[0]->setStyleSheet("QLabel{"
+                                   "background-image:"+A
+                                   +"background-position:center;"
+                                   "background-origin:content;"
+                                   "background-repeat:none;"
+                                   "}");
+        dice[1]->setStyleSheet("QLabel{"
+                                       "background-image:"+B
+                                       +"background-position:center;"
+                                       "background-origin:content;"
+                                       "background-repeat:none;"
+                                       "}");
+
+
+    }
+
+
+}
+void ground::roll()
+{
+    srand(time(0));
+    int a=rand()%6+1;
+    int b=rand()%6+1;
+    setdice(a,b);
+}
+void ground::setwidgets()
+{
+    dice[0]=new QLabel(this);
+    dice[1]=new QLabel(this);
+    dice[0]->setGeometry(1200,520,125,125);
+    dice[1]->setGeometry(1060,520,125,125);
+    setdice(0,0);
+
+    rollbtn=new QPushButton(this);
+    rollbtn->setGeometry(950,520,100,40);
+    rollbtn->setText("Roll!");
+    rollbtn->setStyleSheet("background-color:rgb(181,144,246);");
+
+    nextturn=new QPushButton(this);
+    nextturn-> setGeometry(950,580,100,40);
+    nextturn->setText("Next Turn");
+    nextturn->setStyleSheet("background-color:rgb(208,22,53);");
+}
+void ground::enabel_nodes()
+{
+    for (int id = 0; id < nodes_num; ++id)
+        m_nodes[id]->setEnabled(true);
+}
+void ground::update_node(int k)
+{
+    m_nodes[k]->setStyleSheet("background-color:red;");
 }

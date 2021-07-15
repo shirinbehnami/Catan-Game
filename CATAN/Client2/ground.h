@@ -9,6 +9,10 @@
 #include <algorithm>
 #include <time.h>
 #include <QLabel>
+//---------------------custom libraries----------------------
+#include <hexagonal.h>
+#include <node.h>
+
 using namespace std;
 QT_BEGIN_NAMESPACE
 namespace Ui { class ground; }
@@ -16,9 +20,9 @@ QT_END_NAMESPACE
 
 #define hex_num 28
 #define water_num 42
-
+#define nodes_num 112
 class hexagonal;
-
+class node;
 class ground : public QMainWindow
 {
     Q_OBJECT
@@ -29,11 +33,22 @@ public:
 
     int setResources(string s);
     void setnumbers(string s,int desert_num);
+    void enabel_nodes();
+    void disabel_nodes();
+    void update_node(int k);
+    void setdice(int a,int b);
+    void setwidgets();
 
 private:
     Ui::ground *ui;
     QLabel* labels[hex_num];
     hexagonal* m_hexagonal[hex_num];
+    node* m_nodes[nodes_num];
     hexagonal* m_water[42];
+    QLabel* dice[2];
+    QPushButton* rollbtn;
+    QPushButton* nextturn;
+public slots:
+    void roll();
 };
 #endif // GROUND_H

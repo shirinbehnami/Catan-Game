@@ -10,6 +10,7 @@ class Player: public QObject
 public:
     QTcpSocket* socket;
     int Cnumber;
+    int score;
     explicit Player(QObject *parent = nullptr);
     void connect();
 

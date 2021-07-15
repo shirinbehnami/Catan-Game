@@ -26,7 +26,9 @@ void MainWindow::connection()
     P->send(input);
     QString output = P->recieve();
     qDebug()<<output;
+    P->Cnumber=output.toInt();
     QPalette *palette = new QPalette();
+
     if(output=="1")
         palette->setColor(QPalette::Base,Qt::red);
     else if(output=="2")
@@ -81,9 +83,9 @@ void MainWindow::make_ground()
 {
     QString output = P->recieve();
 
-    G = new ground(output.toUtf8().constData());
+    G = new game(output.toUtf8().constData(),P);
 
-    G->showMaximized();
+    G->show();
 
     close();
 }
@@ -92,9 +94,4 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::send_nonesense()
-{
-    _sleep(1000);
-    QString s="nonesense";
-    P->send(s);
-}
+
