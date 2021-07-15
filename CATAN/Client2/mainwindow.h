@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "player.h"
+#include "ground/ground.h"
+#include "game.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,7 +21,14 @@ public:
 private:
     Ui::MainWindow *ui;
     Player* P;
+    game* G;
+
+    void number_of_player(); 
+    void make_ground();
+    void send_nonesense();
 public slots:
     void connection();
+    void send_number_of_player();
+
 };
 #endif // MAINWINDOW_H
