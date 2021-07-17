@@ -1,0 +1,10 @@
+debug/ground.o
+debug/hexagonal.o
+debug/main.o
+debug/mainwindow.o
+debug/player.o
+debug/qrc_gr.o
+debug/moc_ground.o
+debug/moc_hexagonal.o
+debug/moc_mainwindow.o
+debug/moc_player.o
