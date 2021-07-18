@@ -18,12 +18,13 @@ public:
     };
     Q_ENUM(State)
 
-    explicit SourceCard(State state,QWidget *parent = nullptr);
+    SourceCard(State state,QWidget *parent = nullptr);
+    SourceCard(QString s,QWidget *parent = nullptr);
     ~SourceCard();
 
     State state() const { return m_state; }
     void setState(State State);
-    QString get_state();
+    QString get_state() override;
 
 signals:
     void stateChanged(State State);

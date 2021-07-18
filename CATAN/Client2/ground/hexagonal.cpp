@@ -2,12 +2,12 @@
 
 hexagonal::hexagonal(QWidget *parent)
     : QPushButton(parent),
-      m_row(0), m_col(0),
       m_state(hexagonal::water)
 {
     this->updateHexagonal(m_state);
 
     QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updateHexagonal(State)));
+
 }
 
 
@@ -18,6 +18,25 @@ void hexagonal::setState(State state) {
     if (m_state != state) {
         m_state = state;
         emit stateChanged(state);
+    }
+}
+QString hexagonal::getState()
+{
+    switch (m_state) {
+    case desert:
+        return "desert";
+    case wheat:
+        return "wheat";
+    case clay:
+        return "clay";
+    case ore:
+        return "ore";
+    case wood:
+        return "wood";
+    case water:
+        return  "water";
+    case sheep:
+        return "sheep";
     }
 }
 

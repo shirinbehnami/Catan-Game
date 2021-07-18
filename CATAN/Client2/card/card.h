@@ -11,7 +11,7 @@ public:
 
     Q_ENUM(State)
 
-    explicit cards(QWidget *parent = nullptr);
+    cards(QWidget *parent = nullptr);
     virtual ~cards();
 
     virtual QString get_state()=0;

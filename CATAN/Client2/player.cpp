@@ -5,7 +5,13 @@
 Player::Player(QObject *parent) : QObject(parent)
 {   
     this->connect();
-
+    mycard.insert("wheat",{});
+    mycard.insert("clay",{});
+    mycard.insert("ore",{});
+    mycard.insert("wood",{});
+    mycard.insert("sheep",{});
+    mycard.insert("LargestArmy",{});
+    mycard.insert("RoadBuilder",{});
 }
 
 void Player::set_playernum(int n)
@@ -46,14 +52,13 @@ void Player::send(QString s)
     QByteArray text;
     text=s.toUtf8();
     text+='\n';
-    socket->waitForBytesWritten(1000);
+    socket->waitForBytesWritten(20000);
     socket->write(text);
-   // socket->waitForBytesWritten(1000);
 }
 QString Player::recieve()
 {
     QByteArray* text=new QByteArray();
-    socket->waitForReadyRead();
+    socket->waitForReadyRead(20000);
     *text =socket->readAll();
     qDebug()<<*text;
     return QString::fromUtf8(*text);
@@ -63,7 +68,9 @@ QString Player::recieve()
 
 void Player::Addcard(cards* c)
 {
-    mycard[c->get_state()].push_back(c);
+    QString s = c->get_state();
+    qDebug()<<s;
+    mycard[s].push_back(c);
     updatecards();
 }
 
@@ -75,7 +82,7 @@ void Player::updatecards()
 
     for (QString& state : states)
     {
-          if(mycard.find(state)!=mycard.end())
+          if(mycard[state].size()>0)
           {
               x+=10;
               for(auto& card : mycard[state])

@@ -16,7 +16,7 @@ public:
     };
     Q_ENUM(State)
 
-    explicit SpecialScoreCard(State state,QWidget *parent = nullptr);
+    SpecialScoreCard(State state,QWidget *parent = nullptr);
     virtual ~SpecialScoreCard();
 
     State state() const { return m_state; }

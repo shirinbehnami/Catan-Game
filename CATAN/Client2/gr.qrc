@@ -28,5 +28,17 @@
         <file>image/node/housegreen.png</file>
         <file>image/node/housered.png</file>
         <file>image/node/houseyellow.png</file>
+        <file>image/road/ninetyblue.png</file>
+        <file>image/road/ninetygreen.png</file>
+        <file>image/road/ninetyred.png</file>
+        <file>image/road/ninetyyellow.png</file>
+        <file>image/road/thirtyblue.png</file>
+        <file>image/road/thirtygreen.png</file>
+        <file>image/road/thirtyNegblue.png</file>
+        <file>image/road/thirtyNeggreen.png</file>
+        <file>image/road/thirtyNegred.png</file>
+        <file>image/road/thirtyNegyellow.png</file>
+        <file>image/road/thirtyred.png</file>
+        <file>image/road/thirtyyellow.png</file>
     </qresource>
 </RCC>

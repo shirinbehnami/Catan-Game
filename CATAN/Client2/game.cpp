@@ -39,7 +39,13 @@ void game::opening(int n)
           {
                g->enabel_nodes();
                p->set_my_turn(true);
-               connect(g, &ground::turn_pressed, this,[=]() {turn_finish(n);});
+
+               QMetaObject::Connection * const c = new QMetaObject::Connection;
+               *c = connect(g, &ground::turn_pressed, [this,c,n](){
+                   QObject::disconnect(*c);
+                   delete c;
+                   turn_finish(n);
+               });
           }
          else
          {
@@ -54,7 +60,12 @@ void game::opening(int n)
 
 void game::turn_finish(int n)
 {
-     p->send_houses();
+    //qDebug()<<num<<"-"<<n;
+    p->send_houses();
+    //if(n==2)
+    //{
+    //    g->Card_distribution(p);
+    //}
     p->clean_houses_built_string();
     g->disabel_nodes();
     opening(n);

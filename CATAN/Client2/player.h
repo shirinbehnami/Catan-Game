@@ -15,8 +15,10 @@ public:
 
     explicit Player(QObject *parent = nullptr);
     virtual ~Player(){};
+
     void set_playernum(int n);
     int get_playernum(){return myplayernum;}
+
     bool is_my_turn(){return my_turn;}
     QColor get_color(){return mycolor;}
 
@@ -29,6 +31,7 @@ public:
     void Addcard(cards* c);
 
     void clean_houses_built_string(){houses_built="";}
+    QString get_house_built(){return houses_built;}
     void send_houses(){send(houses_built);}
 
 private:

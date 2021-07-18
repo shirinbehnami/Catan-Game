@@ -34,4 +34,14 @@ QPixmap node::stateToPixmap(State state,QString s) {
 void node::updatenode(State state,QString s) {
     this->setIcon(node::stateToPixmap(state,s));
 }
+QString node::get_state()
+{    switch (m_state) {
+    case node::house:
+        return "house";
+    case node::city:
+        return "city";
+    default:
+        return "none";
+}
 
+}

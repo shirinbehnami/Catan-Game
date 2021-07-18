@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <ground/ground.h>
+#include <card/sourcecard.h>
 #include <player.h>
 #include <iostream>
 
@@ -21,6 +22,7 @@ private:
     Player* p;
     int turn;
     int client_num;
+
 
 private slots:
     void turn_finish(int n);

@@ -6,9 +6,22 @@ SourceCard::SourceCard(State state,QWidget *parent)
 {
     this->updatecard(m_state);
 
-    QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updateHexagonal(State)));
+    connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatecard(State)));
 }
 
+SourceCard::SourceCard(QString s,QWidget *parent)
+{
+    if(s=="wheat")
+        SourceCard(SourceCard::wheat,parent);
+    else if(s=="clay")
+        SourceCard(SourceCard::clay,parent);
+    else if(s=="ore")
+        SourceCard(SourceCard::ore,parent);
+    else if(s=="wood")
+        SourceCard(SourceCard::wood,parent);
+    else if(s=="sheep")
+        SourceCard(SourceCard::sheep,parent);
+}
 SourceCard::~SourceCard() {
 }
 

@@ -17,6 +17,7 @@ SOURCES += \
     ground/ground.cpp \
     ground/hexagonal.cpp \
     ground/node.cpp \
+    ground/road.cpp \
     main.cpp \
     mainwindow.cpp \
     player.cpp
@@ -29,6 +30,7 @@ HEADERS += \
     ground/ground.h \
     ground/hexagonal.h \
     ground/node.h \
+    ground/road.h \
     mainwindow.h \
     player.h
 
