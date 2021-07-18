@@ -95,7 +95,7 @@ ground::ground(int pl_num,string s,QWidget *parent)
     int desert_num=setResources(s1);
     setnumbers(s2,desert_num);
     setwidgets();
-  //  create_node_neighberhood();
+    create_node_neighberhood();
 //-------------------SIGNALS---------------------------
     connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
 
