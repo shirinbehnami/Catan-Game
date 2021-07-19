@@ -6,13 +6,13 @@ game::game(string s,Player* _p,int _cn,QObject *parent): QObject(parent)
 {
     g=new ground(_p->get_playernum(),s);
     p=_p;
-    p->clean_houses_built_string();
+    p->clean_obj_built_string();
     turn=0;
     client_num = _cn;
 
-    connect(g,SIGNAL(ColorShape()),p,SLOT(addScore()));
+    connect(g,SIGNAL(ColorShapenode()),p,SLOT(addScore()));
     connect(g, &ground::turn_pressed, p,[&]() {p->set_my_turn(false);});
-    connect(g, SIGNAL(house_created(int)), p,SLOT(add_house_to_msg(int)));
+    connect(g, SIGNAL(obj_created(int)), p,SLOT(add_obj_to_msg(int)));
 }
 
 void game::show()
@@ -37,20 +37,26 @@ void game::opening(int n)
     {
           if(p->get_playernum()==turn)
           {
-               g->enabel_nodes();
                p->set_my_turn(true);
+               g->enabel_nodes();
 
                QMetaObject::Connection * const c = new QMetaObject::Connection;
-               *c = connect(g, &ground::turn_pressed, [this,c,n](){
+               *c = connect(g, &ground::ColorShapenode, [this,c,n](){
                    QObject::disconnect(*c);
                    delete c;
-                   turn_finish(n);
+                   make_road(n);
                });
+
           }
          else
          {
-             QString index=p->recieve();
-             g->update_node(index.toInt(),turn);
+             string s=p->recieve().toStdString();
+             int end= s.find('-');
+             int n1,n2;
+             sscanf(s.substr(0,end).c_str(), "%d", &n1);
+             sscanf(s.substr(end+1,s.length()-1).c_str(), "%d", &n2);
+             g->update_node(n1,turn);
+             g->update_roads(n2,turn);
              qApp->processEvents();
              opening(n);
          }
@@ -58,15 +64,28 @@ void game::opening(int n)
     }
 }
 
+void game::make_road(int n)
+{
+    g->disabel_nodes();
+    qApp->processEvents();
+    g->enabel_roads();
+    QMetaObject::Connection * const c = new QMetaObject::Connection;
+    *c = connect(g, &ground::turn_pressed, [this,c,n](){
+        QObject::disconnect(*c);
+        delete c;
+        turn_finish(n);
+    });
+}
+
 void game::turn_finish(int n)
 {
-    //qDebug()<<num<<"-"<<n;
-    p->send_houses();
-    //if(n==2)
-    //{
-    //    g->Card_distribution(p);
-    //}
-    p->clean_houses_built_string();
-    g->disabel_nodes();
+    p->send_obj();
+    if(n==2)
+    {
+        g->Card_distribution(p);
+        qApp->processEvents();
+    }
+    p->clean_obj_built_string();
+    g->disabel_roads();
     opening(n);
 }

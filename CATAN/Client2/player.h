@@ -30,16 +30,16 @@ public:
 
     void Addcard(cards* c);
 
-    void clean_houses_built_string(){houses_built="";}
-    QString get_house_built(){return houses_built;}
-    void send_houses(){send(houses_built);}
+    void clean_obj_built_string(){obj_built="";}
+    QString get_obj_built(){return obj_built;}
+    void send_obj(){send(obj_built);}
 
 private:
     QTcpSocket* socket;
     int myplayernum;
     int score;
     bool my_turn;
-    QString houses_built;
+    QString obj_built;
     QColor mycolor;
     QMap<QString,QVector<cards*>> mycard;
 
@@ -47,7 +47,7 @@ private:
 
 public slots:
     void set_my_turn(bool mt){my_turn=mt;}
-    void add_house_to_msg(int index){houses_built+=QString::number(index);}
+    void add_obj_to_msg(int index){obj_built+=(QString::number(index)+'-');}
 
 private slots:
     void addScore(){score++;}

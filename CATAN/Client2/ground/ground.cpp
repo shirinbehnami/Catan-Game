@@ -11,13 +11,43 @@ ground::ground(int pl_num,string s,QWidget *parent)
     this->setWindowTitle("ground"+QString::number(pl_num));
     set_city_colors();
 
+    set_hexagonal();
+
+    set_road(pl_num);
+
+    set_node(pl_num);
+
+    this->adjustSize();
+
+    string s1,s2;
+    int end= s.find('-');
+    s1=s.substr(0,end);
+    s2=s.substr(end+1,s.length());
+
+    int desert_num=setResources(s1);
+    setnumbers(s2,desert_num);
+    setwidgets();
+    create_node_neighberhood();
+
+//-------------------SIGNALS---------------------------
+    connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
+
+ }
+
+ground::~ground()
+{
+    delete ui;
+}
+
+void ground::set_hexagonal()
+{
     for (int id = 0; id < hex_num; ++id)
     {
         hexagonal* hex = this->findChild<hexagonal*>(QString("hex%1").arg(id));
         Q_ASSERT(hex != nullptr);
 
         m_hexagonal[id] = hex;
-        //QObject::connect(hex, SIGNAL(clicked(bool)), map, SLOT(map()));
+
         labels[id]=new QLabel(this);
         labels[id]-> setGeometry(QRect(m_hexagonal[id]->x()+40, m_hexagonal[id]->y()+50, 40, 30));
         labels[id]->setStyleSheet("color:white;font:bold;" "font-size:25px;");
@@ -31,21 +61,30 @@ ground::ground(int pl_num,string s,QWidget *parent)
         m_water[id] = w;
     }
 
+}
+void ground::set_node(int pl_num)
+{
     for (int id = 0; id < nodes_num; ++id)
     {
         m_nodes[id]=new node(this);
-        Q_ASSERT(m_nodes[id] != nullptr);
         //m_nodes[id]->setStyleSheet("border: none;outline: none");
         //m_nodes[id]->setFlat(true);
         //m_nodes[id]->setMinimumSize(QSize(25,30));
         //m_nodes[id]->setIconSize(QSize(30,30));
-        m_nodes[id]->setState(node::none,"");
-        //m_nodes[id]->setStyleSheet("background-color:black;");
+        m_nodes[id]->setState(node::none);
         m_nodes[id]->setEnabled(false);
+        m_nodes[id]->setVisible(false);
         m_nodes[id]->set_index(id);
 
-        connect(m_nodes[id], &node::clicked, this,
-                [=]() { ChangeShape(pl_num); });
+        QObject::connect(m_nodes[id], &QPushButton::pressed, this,
+                [=]() { ChangeShapenode(pl_num); });
+        QMetaObject::Connection * const c = new QMetaObject::Connection;
+        *c = connect(m_nodes[id], &QPushButton::clicked, [this,c](){
+            QObject::disconnect(*c);
+            delete c;
+            qDebug()<<"click";
+        });
+
     }
 
     int c;
@@ -82,29 +121,206 @@ ground::ground(int pl_num,string s,QWidget *parent)
                }
             }
         }
-    this->adjustSize();
-
-    string s1,s2;
-    int end= s.find('-');
-    s1=s.substr(0,end);
-    s2=s.substr(end+1,s.length());
-
-    //qDebug()<<s1.c_str();
-    //qDebug()<<s2.c_str();
-
-    int desert_num=setResources(s1);
-    setnumbers(s2,desert_num);
-    setwidgets();
-    create_node_neighberhood();
-//-------------------SIGNALS---------------------------
-    connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
-
- }
-
-ground::~ground()
-{
-    delete ui;
 }
+void ground::set_road(int pl_num)
+{
+     for(int i=40; i<road_num;i++)
+     {
+         if(i>=40 && i<44)
+         {
+            if(i%2==0)
+                m_roads[i]=new roads(roads::thirty,roads::road,this);
+            else
+                m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+            m_roads[i]-> setGeometry(255+((i-40)*42.25), 97, 16, 16);
+         }
+         if(i>=44 && i<46)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+              m_roads[i]->setGeometry(255+((i+2-40)*42.25), 97, 16, 16);
+         }
+         if(i>=46 && i<50)
+         {
+            if(i%2==0)
+                m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+            else
+                m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+            m_roads[i]-> setGeometry(255+((i-46)*42.25), 168, 16, 16);
+         }
+         if(i>=50 && i<55)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(255+((i+2-46)*42.25), 168, 16, 16);
+         }
+         if(i>=55 && i<61)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(255+((i-55)*42.25), 240, 16, 16);
+         }
+         if(i>=61 && i<65)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(255+((i+1-55)*42.25), 240, 16, 16);
+         }
+         if(i>=65 && i<73)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(213+((i-65)*42.25), 312, 16, 16);
+         }
+         if(i>=73 && i<76)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(213+((i+1-65)*42.25), 312, 16, 16);
+         }
+         if(i>=76 && i<86)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(171+((i-76)*42.25), 382, 16, 16);
+         }
+         if(i>=86 && i<88)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(171+((i+1-76)*42.25), 382, 16, 16);
+         }
+         if(i>=88 && i<98)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(171+((i-88)*42.25), 454, 16, 16);
+         }
+         if(i>=98 && i<100)
+         {
+             if(i%2==0)
+                  m_roads[i]=new roads(roads::thirty,roads::road,this);
+              else
+                  m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(171+((i+1-88)*42.25), 454, 16, 16);
+         }
+         if(i>=100 && i<108)
+         {
+             if(i%2==0)
+                 m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+             else
+                 m_roads[i]=new roads(roads::thirty,roads::road,this);
+
+             m_roads[i]->setGeometry(213+((i-100)*42.25), 526, 16, 16);
+         }
+         if(i>=108 && i<111)
+         {
+             if(i%2==0)
+                  m_roads[i]=new roads(roads::thirty,roads::road,this);
+              else
+                  m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(213+((i+1-100)*42.25), 526, 16, 16);
+         }
+         if(i>=111 && i<117)
+         {
+             if(i%2==0)
+                  m_roads[i]=new roads(roads::thirty,roads::road,this);
+              else
+                  m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(255+((i-111)*42.25), 600, 16, 16);
+         }
+         if(i>=117 && i<119)
+         {
+             if(i%2==0)
+                  m_roads[i]=new roads(roads::thirty,roads::road,this);
+              else
+                  m_roads[i]=new roads(roads::thirtyNeg,roads::road,this);
+
+             m_roads[i]->setGeometry(255+((i+2-111)*42.25), 600, 16, 16);
+         }
+     }
+
+     for(int i=0; i<5;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(234+(i*84.5), 133, 16, 16);
+     }
+     m_roads[5]=new roads(roads::ninety,roads::road,this);
+     m_roads[5]->setGeometry(530, 206, 16, 16);
+     m_roads[6]=new roads(roads::ninety,roads::road,this);
+     m_roads[6]->setGeometry(613, 206, 16, 16);
+     m_roads[7]=new roads(roads::ninety,roads::road,this);
+     m_roads[7]->setGeometry(700, 206, 16, 16);
+     for(int i=8; i<14;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(233+((i-8)*84.5), 280, 16, 16);
+     }
+     for(int i=14; i<21;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(193+((i-14)*84.5), 354, 16, 16);
+     }
+     for(int i=21; i<27;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(149+((i-21)*84.5), 420, 16, 16);
+     }
+     for(int i=27; i<34;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(190+((i-27)*84.5), 492, 16, 16);
+     }
+     for(int i=34; i<40;i++)
+     {
+         m_roads[i]=new roads(roads::ninety,roads::road,this);
+         m_roads[i]-> setGeometry(236+((i-34)*84.5), 567, 16, 16);
+     }
+
+     for (int id = 0; id < road_num; ++id)
+     {
+        m_roads[id]->setStyleSheet("border:none;outline:none;color:white;");
+        m_roads[id]->setMinimumSize(QSize(40,70));
+        m_roads[id]->setIconSize(QSize(55,55));
+        m_roads[id]->setEnabled(false);
+        m_roads[id]->set_index(id);
+
+        connect(m_roads[id], &roads::clicked, this,[=]() { ChangeShaperoad(pl_num); });
+     }
+}
+//void ground::set_bridge();
 
 int ground::setResources(string s)
 {
@@ -219,17 +435,28 @@ void ground::setwidgets()
     nextturn-> setGeometry(950,580,100,40);
     nextturn->setText("Next Turn");
     nextturn->setStyleSheet("background-color:rgb(208,22,53);");
+
+    QLabel* l1;
+    l1=new QLabel(this);
+    l1-> setGeometry(QRect(950, 375, 375, 125));
+    l1->setStyleSheet("background-color:rgb(181,144,246);");
 }
 void ground::enabel_nodes()
 {
-    //inja bayad shart he check beshan.
     for (int id = 0; id < nodes_num; ++id)
+    {
         m_nodes[id]->setEnabled(true);
+        m_nodes[id]->setVisible(true);
+    }
 }
 void ground::disabel_nodes()
 {
     for (int id = 0; id < nodes_num; ++id)
-        m_nodes[id]->setEnabled(false);
+        if(!m_nodes[id]->get_is_built())
+        {
+            m_nodes[id]->setEnabled(false);
+            m_nodes[id]->setVisible(false);
+        }
 }
 void ground::update_node(int k,int pl_num)
 {
@@ -237,15 +464,76 @@ void ground::update_node(int k,int pl_num)
     m_nodes[k]->setIconSize(QSize(70,70));
     m_nodes[k]->setMinimumSize(QSize(40,45));
     m_nodes[k]->setGeometry(m_nodes[k]->x()-20,m_nodes[k]->y()-20,m_nodes[k]->width(),m_nodes[k]->height());
+    m_nodes[k]->set_is_built(true);
 
     if(pl_num==1)
-        m_nodes[k]->setState(node::house,"yellow");
+    {
+        m_nodes[k]->set_color("yellow");
+        m_nodes[k]->setState(node::house);
+    }
     else if(pl_num==2)
-        m_nodes[k]->setState(node::house,"red");
+    {
+        m_nodes[k]->set_color("red");
+        m_nodes[k]->setState(node::house);
+    }
+
     else if(pl_num==3)
-        m_nodes[k]->setState(node::house,"blue");
+    {
+        m_nodes[k]->set_color("blude");
+        m_nodes[k]->setState(node::house);
+    }
+
     else
-        m_nodes[k]->setState(node::house,"green");
+    {
+        m_nodes[k]->set_color("green");
+        m_nodes[k]->setState(node::house);
+    }
+    m_nodes[k]->set_is_built(true);
+    m_nodes[k]->setVisible(true);
+    m_nodes[k]->setEnabled(true);
+}
+void ground::enabel_roads()
+{
+    for (int id = 0; id < road_num; ++id)
+    {
+        m_roads[id]->setEnabled(true);
+    }
+}
+void ground::disabel_roads()
+{
+    for (int id = 0; id < road_num; ++id)
+    {
+        if(!m_roads[id]->get_is_built())
+        {
+            m_roads[id]->setEnabled(false);
+        }
+    }
+}
+void ground::update_roads(int k, int pl_num)
+{
+
+    if(pl_num==1)
+    {
+        m_roads[k]->set_color("yellow");
+        m_roads[k]->setState();
+    }
+    else if(pl_num==2)
+    {
+        m_roads[k]->set_color("red");
+        m_roads[k]->setState();
+    }
+    else if(pl_num==3)
+    {
+        m_roads[k]->set_color("blude");
+        m_roads[k]->setState();
+    }
+    else
+    {
+        m_roads[k]->set_color("green");
+        m_roads[k]->setState();
+    }
+    m_roads[k]->set_is_built(true);
+
 }
 void ground::set_city_colors()
 {
@@ -268,34 +556,78 @@ void ground::set_city_colors()
     }
     }
 }
-void ground::ChangeShape(int pl_num)
+void ground::ChangeShapenode(int pl_num)
 {
      node* BT=(node*)sender();
     if(check_node(BT,pl_num))
     {
-     BT->setStyleSheet("border: none;outline: none");
-     BT->setIconSize(QSize(70,70));
-     BT->setMinimumSize(QSize(40,45));
-     BT->setGeometry(BT->x()-20,BT->y()-20,BT->width(),BT->height());
-     if(pl_num==1)
-     {   BT->setState(node::house,"yellow");
-         BT->set_color("yellow");
-     }
-     else if(pl_num==2)
-     {   BT->setState(node::house,"red");
-         BT->set_color("red");}
-     else if(pl_num==3)
-        { BT->setState(node::house,"blue");
-          BT->set_color("blue");}
-     else
-        { BT->setState(node::house,"green");
-          BT->set_color("green");}
+         BT->setStyleSheet("border: none;outline: none");
+         BT->setIconSize(QSize(70,70));
+         BT->setMinimumSize(QSize(40,45));
+         BT->setGeometry(BT->x()-20,BT->y()-20,BT->width(),BT->height());
 
-     emit ColorShape();
-     emit house_created(BT->get_index());
+         if(pl_num==1)
+         {
+             BT->set_color("yellow");
+             BT->setState(node::house);
+         }
+         else if(pl_num==2)
+         {
+             BT->set_color("red");
+             BT->setState(node::house);
+         }
+         else if(pl_num==3)
+         {
+             BT->set_color("blue");
+             BT->setState(node::house);
+         }
+         else
+         {
+             BT->set_color("green");
+             BT->setState(node::house);
+         }
+
+         emit ColorShapenode();
+         emit obj_created(BT->get_index());
     }
     else
         QMessageBox::information(this, tr("error"),"you can't build in this position");
+}
+void ground::ChangeShaperoad(int pl_num)
+{
+    roads* BT=(roads*)sender();
+    //if(check_node(BT,pl_num))
+    //{
+     //BT->setStyleSheet("border: none;outline: none");
+     //BT->setIconSize(QSize(70,70));
+     //BT->setMinimumSize(QSize(40,45));
+     //BT->setGeometry(BT->x()-20,BT->y()-20,BT->width(),BT->height());
+     if(pl_num==1)
+     {
+         BT->set_color("yellow");
+         BT->setState();
+     }
+     else if(pl_num==2)
+     {
+         BT->set_color("red");
+         BT->setState();
+     }
+     else if(pl_num==3)
+     {
+         BT->set_color("blue");
+         BT->setState();
+     }
+     else
+     {
+         BT->set_color("green");
+         BT->setState();
+     }
+
+     emit ColorShaperoad();
+     emit obj_created(BT->get_index());
+    //}
+    //else
+        //QMessageBox::information(this, tr("error"),"you can't build in this position");
 }
 void ground::next_turn_pressed()
 {
@@ -304,9 +636,11 @@ void ground::next_turn_pressed()
 
 void ground::Card_distribution(Player* p)
 {
-    //qDebug()<<node_num;
+    string s=p->get_obj_built().toStdString();
+    int end= s.find('-');
+    int index;
+    sscanf(s.substr(0,end).c_str(), "%d", &index);
 
-    int index = p->get_house_built().toInt();
     int cnt=0;
     for (int i=0;i<hex_num;i++)
     {
@@ -314,9 +648,13 @@ void ground::Card_distribution(Player* p)
          {
              cnt++;
              QString s = m_hexagonal[i]->getState();
-             qDebug()<<s;
-             cards* c = new SourceCard(s);
-             p->Addcard(c);
+
+             if(s!="desert")
+             {
+                 cards* c = new SourceCard(s,this);
+                 c->show();
+                 p->Addcard(c);
+             }
          }
          if(cnt==3)
          {

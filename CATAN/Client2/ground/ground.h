@@ -13,6 +13,7 @@
 //---------------------custom libraries----------------------
 #include <ground/hexagonal.h>
 #include <ground/node.h>
+#include <ground/road.h>
 #include <card/sourcecard.h>
 #include <player.h>
 
@@ -25,7 +26,8 @@ QT_END_NAMESPACE
 #define hex_num 28
 #define water_num 42
 #define nodes_num 95
-
+#define road_num 119
+#define bridge_num 36
 
 class ground : public QMainWindow
 {
@@ -45,6 +47,11 @@ public:
     void enabel_nodes();
     void disabel_nodes();
     void update_node(int k,int pl_num);
+
+    void enabel_roads();
+    void disabel_roads();
+    void update_roads(int k,int pl_num);
+
     void set_city_colors();
     bool check_node(node* n,int pl_num);
 
@@ -52,9 +59,10 @@ public:
     void Card_distribution(Player* p);
 
 signals:
-    void ColorShape();
+    void ColorShapenode();
+    void ColorShaperoad();
     void turn_pressed();
-    void house_created(int index);
+    void obj_created(int index);
 
 
 private:
@@ -62,8 +70,10 @@ private:
     QString* city_colors[4];
     QLabel* labels[hex_num];
     hexagonal* m_hexagonal[hex_num];
+    hexagonal* m_water[water_num];
     node* m_nodes[nodes_num];
-    hexagonal* m_water[42];
+    roads* m_roads[road_num];
+    roads* m_bridges[bridge_num];
 
     QLabel* dice[2];
     QPushButton* rollbtn;
@@ -101,9 +111,16 @@ private:
         };
     //--------------------------------------------------
     map<int, vector<int>> node_neighberhood;
+
+    void set_hexagonal();
+    void set_node(int pl_num);
+    void set_road(int pl_num);
+    void set_bridge();
+
 public slots:
     void roll();
-    void ChangeShape(int pl_num);
+    void ChangeShapenode(int pl_num);
+    void ChangeShaperoad(int pl_num);
     void next_turn_pressed();
 
 };

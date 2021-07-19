@@ -4,23 +4,38 @@ SourceCard::SourceCard(State state,QWidget *parent)
     :cards(parent),
       m_state(state)
 {
+
+    setFlat(true);
+    setMinimumSize(QSize(80,150));
+    setIconSize(QSize(70,210));
+
     this->updatecard(m_state);
 
     connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatecard(State)));
 }
 
 SourceCard::SourceCard(QString s,QWidget *parent)
+    :cards(parent)
 {
     if(s=="wheat")
-        SourceCard(SourceCard::wheat,parent);
+        m_state = SourceCard::wheat;
     else if(s=="clay")
-        SourceCard(SourceCard::clay,parent);
+        m_state = SourceCard::clay;
     else if(s=="ore")
-        SourceCard(SourceCard::ore,parent);
+        m_state = SourceCard::ore;
     else if(s=="wood")
-        SourceCard(SourceCard::wood,parent);
+        m_state = SourceCard::wood;
     else if(s=="sheep")
-        SourceCard(SourceCard::sheep,parent);
+        m_state = SourceCard::sheep;
+
+
+    setFlat(true);
+    setMinimumSize(QSize(80,150));
+    setIconSize(QSize(70,210));
+
+    this->updatecard(m_state);
+
+    connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatecard(State)));
 }
 SourceCard::~SourceCard() {
 }

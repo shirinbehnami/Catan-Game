@@ -1,36 +1,36 @@
 #include "road.h"
 
-road::road(QWidget *parent)
+roads::roads(State s,Type t,QWidget *parent)
     : QPushButton(parent),
-      m_state(none)
+      m_state(s),
+      m_type(t),
+      is_built(false)
 {
-    this->updateroad(m_state);
+    this->updateroad(none);
     QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updateroad(State)));
 }
 
-road::~road() {}
+roads::~roads() {}
 
-void road::setState(State state) {
-    if (m_state != state) {
-        m_state = state;
-        emit stateChanged(state);
-    }
+void roads::setState() {
+     is_built = true;
+     emit stateChanged(m_state);
 }
 
-QPixmap road::stateToPixmap(State state) {
+QPixmap roads::stateToPixmap(State state) {
     switch (state) {
-        case road::thirty:
-            return QPixmap(":/image/road/thirtyblue.png");
-        case road::thirtyNeg:
-            return QPixmap(":/image/road/thirtyNegblue.png");
-        case road::ninety:
-            return QPixmap(":/image/road/ninetyblue.png");
+        case roads::thirty:
+            return QPixmap(":/image/road/thirty"+color+".png");
+        case roads::thirtyNeg:
+            return QPixmap(":/image/road/thirtyNeg"+color+".png");
+        case roads::ninety:
+            return QPixmap(":/image/road/ninety"+color+".png");
         default:
             return QPixmap();
     }
 
 }
 
-void road::updateroad(State state) {
-    this->setIcon(road::stateToPixmap(state));
+void roads::updateroad(State state) {
+    this->setIcon(roads::stateToPixmap(state));
 }

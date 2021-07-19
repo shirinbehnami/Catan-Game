@@ -59,7 +59,6 @@ QPixmap hexagonal::stateToPixmap(State state) {
         default:
             return QPixmap();
     }
-
 }
 
 void hexagonal::updateHexagonal(State state) {

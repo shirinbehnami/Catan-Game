@@ -4,11 +4,11 @@
 #include<QPushButton>
 #include <QObject>
 
-class road:public QPushButton
+class roads:public QPushButton
 {
 
     Q_OBJECT
-    Q_PROPERTY(State state READ state WRITE setState NOTIFY stateChanged)
+
 public:
     enum State {
         thirty,
@@ -18,19 +18,38 @@ public:
     };
     Q_ENUM(State)
 
-    explicit road(QWidget *parent = nullptr);
-    virtual ~road();
+    enum Type{
+        bridge,
+        road
+    };
+    Q_ENUM(Type)
+
+    explicit roads(State s,Type t,QWidget *parent = nullptr);
+    virtual ~roads();
 
     State state() const { return m_state; }
-    void setState(State State);
+    void setState();
+
+    void set_index(int i){index=i;}
+    int get_index(){return index;}
+
+    void set_color(QString s){color=s;}
+    QString get_color(){return color;}
+
+    bool get_is_built(){return is_built;}
+    void set_is_built(bool x){is_built=x;}
 
 signals:
     void stateChanged(State State);
 
 private:
+    int index;
     State m_state;
+    QString color;
+    Type m_type;
+    bool is_built;
 
-    static QPixmap stateToPixmap(State state);
+    QPixmap stateToPixmap(State state);
 
 private slots:
     void updateroad(State state);

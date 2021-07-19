@@ -2,38 +2,41 @@
 
 node::node(QWidget *parent)
     : QPushButton(parent),
-      m_state(none)
+      m_state(none),
+      is_built(false)
 {
-    this->updatenode(m_state,"");
-    QObject::connect(this, SIGNAL(stateChanged(State,QString)), this, SLOT(updatenode(State,QString)));
+    this->updatenode(m_state);
+    QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updatenode(State)));
 
 
 }
 
 node::~node() {}
 
-void node::setState(State state,QString s) {
+void node::setState(State state) {
     if (m_state != state) {
         m_state = state;
-        emit stateChanged(state,s);
+        is_built=true;
+        emit stateChanged(state);
     }
 }
 
-QPixmap node::stateToPixmap(State state,QString s) {
+QPixmap node::stateToPixmap(State state) {
     switch (state) {
         case node::house:
-            return QPixmap(":/image/node/house"+s+".png");
+            return QPixmap(":/image/node/house"+color+".png");
         case node::city:
-            return QPixmap(":/image/node/city"+s+".png");
+            return QPixmap(":/image/node/city"+color+".png");
         default:
             return QPixmap();
     }
 
 }
 
-void node::updatenode(State state,QString s) {
-    this->setIcon(node::stateToPixmap(state,s));
+void node::updatenode(State state) {
+    this->setIcon(node::stateToPixmap(state));
 }
+
 QString node::get_state()
 {    switch (m_state) {
     case node::house:

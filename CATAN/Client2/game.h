@@ -26,6 +26,7 @@ private:
 
 private slots:
     void turn_finish(int n);
+    void make_road(int n);
 };
 
 #endif // GAME_H

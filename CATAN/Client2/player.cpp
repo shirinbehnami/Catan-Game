@@ -1,10 +1,12 @@
 #include "player.h"
 #include "card/card.h"
+
 #include <QApplication>
 
 Player::Player(QObject *parent) : QObject(parent)
 {   
     this->connect();
+
     mycard.insert("wheat",{});
     mycard.insert("clay",{});
     mycard.insert("ore",{});
@@ -12,6 +14,7 @@ Player::Player(QObject *parent) : QObject(parent)
     mycard.insert("sheep",{});
     mycard.insert("LargestArmy",{});
     mycard.insert("RoadBuilder",{});
+
 }
 
 void Player::set_playernum(int n)
@@ -76,7 +79,7 @@ void Player::Addcard(cards* c)
 
 void Player::updatecards()
 {
-    int x =940;
+    int x =920;
 
     QString states[] = {"wheat","clay","ore","wood","sheep","largestarmy","roadbuilder"};
 
@@ -84,11 +87,11 @@ void Player::updatecards()
     {
           if(mycard[state].size()>0)
           {
-              x+=10;
+              x+=40;
               for(auto& card : mycard[state])
               {
                   card->setGeometry(x,365,12,12);
-                  x+=40;
+                  x+=30;
               }
           }
     }
