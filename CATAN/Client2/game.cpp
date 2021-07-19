@@ -13,6 +13,7 @@ game::game(string s,Player* _p,int _cn,QObject *parent): QObject(parent)
     connect(g,SIGNAL(ColorShapenode()),p,SLOT(addScore()));
     connect(g, &ground::turn_pressed, p,[&]() {p->set_my_turn(false);});
     connect(g, SIGNAL(obj_created(int)), p,SLOT(add_obj_to_msg(int)));
+    connect(g,SIGNAL(roll_pressed(int)),p,SLOT(add_dice_to_msg(int)));
 }
 
 void game::show()
@@ -23,16 +24,15 @@ void game::opening(int n)
 {
     qDebug()<<"opening1";
 
-    if(n==1)
-        turn++;
-    else
-        turn--;
+  //  if(n==1)
+    //    turn++;
+  //  else
+   //     turn--;
 
     if(turn>client_num)
         opening(2);
     else if(turn<1)
-        return;
-        //play
+        play();
     else
     {
           if(p->get_playernum()==turn)
@@ -88,4 +88,37 @@ void game::turn_finish(int n)
     p->clean_obj_built_string();
     g->disabel_roads();
     opening(n);
+}
+void game::play()
+{
+    turn=1;
+//    while(turn!=4)
+    {
+    if(p->get_playernum()==turn)
+    {
+        g->enabel_dice();
+        QMetaObject::Connection * const c = new QMetaObject::Connection;
+        *c = connect(g, &ground::roll_pressed, [this,c](){
+            QObject::disconnect(*c);
+            delete c;
+        p->send_dice();
+    });
+    }
+    else
+    {
+        QString msg=p->recieve();
+        int sum=update_dice(msg);
+        qApp->processEvents();
+       // g->Card_distribution(p,sum);
+    }
+    turn++;
+    }
+    if(turn==4)
+        turn=1;
+}
+int game::update_dice(QString s)
+{
+    int x=s.toInt();
+    g->setdice(x/10,x%10);
+    return x/10+x%10;
 }

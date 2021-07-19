@@ -15,8 +15,10 @@ public:
     void show();
 
     void opening(int n);
+    void play();
+    int update_dice(QString s);
 
-   // void play();
+
 private:
     ground* g;
     Player* p;

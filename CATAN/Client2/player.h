@@ -33,6 +33,7 @@ public:
     void clean_obj_built_string(){obj_built="";}
     QString get_obj_built(){return obj_built;}
     void send_obj(){send(obj_built);}
+    void send_dice(){send(dice);}
 
 private:
     QTcpSocket* socket;
@@ -40,6 +41,7 @@ private:
     int score;
     bool my_turn;
     QString obj_built;
+    QString dice;
     QColor mycolor;
     QMap<QString,QVector<cards*>> mycard;
 
@@ -48,6 +50,7 @@ private:
 public slots:
     void set_my_turn(bool mt){my_turn=mt;}
     void add_obj_to_msg(int index){obj_built+=(QString::number(index)+'-');}
+   void add_dice_to_msg(int s){dice=QString::number(s);}
 
 private slots:
     void addScore(){score++;}

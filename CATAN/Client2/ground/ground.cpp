@@ -17,7 +17,6 @@ ground::ground(int pl_num,string s,QWidget *parent)
 
     set_node(pl_num);
 
-    this->adjustSize();
 
     string s1,s2;
     int end= s.find('-');
@@ -29,9 +28,10 @@ ground::ground(int pl_num,string s,QWidget *parent)
     setwidgets();
     create_node_neighberhood();
 
+    this->adjustSize();
 //-------------------SIGNALS---------------------------
     connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
-
+    connect(rollbtn,SIGNAL(clicked()),this,SLOT(roll()));
  }
 
 ground::~ground()
@@ -409,7 +409,7 @@ void ground::setdice(int a,int b)
 
     }
 
-
+    //disabel_dice();
 }
 void ground::roll()
 {
@@ -417,6 +417,8 @@ void ground::roll()
     int a=rand()%6+1;
     int b=rand()%6+1;
     setdice(a,b);
+    int s=10*a+b;
+    emit roll_pressed(s);
 }
 void ground::setwidgets()
 {
@@ -509,6 +511,8 @@ void ground::disabel_roads()
         }
     }
 }
+void ground::disabel_dice(){rollbtn->setEnabled(false);}
+void ground::enabel_dice(){rollbtn->setEnabled(true);}
 void ground::update_roads(int k, int pl_num)
 {
 

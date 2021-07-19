@@ -52,17 +52,23 @@ public:
     void disabel_roads();
     void update_roads(int k,int pl_num);
 
+    void enabel_dice();
+    void disabel_dice();
+
     void set_city_colors();
     bool check_node(node* n,int pl_num);
+    bool check_rode(node* n,int pl_num);
 
     void Card_distribution(int roll_num);
     void Card_distribution(Player* p);
+    void Card_distribution(Player* p,int sum);
 
 signals:
     void ColorShapenode();
     void ColorShaperoad();
     void turn_pressed();
     void obj_created(int index);
+    void roll_pressed(int n);
 
 
 private:

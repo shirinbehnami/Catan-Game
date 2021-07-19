@@ -211,7 +211,7 @@ private:
 	void number_of_player(int p_index);
 	void recieve_name(int p_index);
 	void opening();
-	//void play();
+	void play();
 
 	int client_num;
 	vector<Player*> P_list;
@@ -238,9 +238,9 @@ Game::Game()
 
 	make_ground();
 
-	opening();
+//	opening();
 
-	//play();
+	play();
 
 }
 Game::~Game()
@@ -311,7 +311,7 @@ void Game::opening()
 		broadcast(p_index, msg);
 	}
 
-	for (int p_index = client_num-1; p_index >= 0; p_index--)
+	for (int p_index = client_num - 1; p_index >= 0; p_index--)
 	{
 		boost::asio::streambuf buff;
 
@@ -327,6 +327,19 @@ void Game::broadcast(int index, string msg)
 	for (int p_index = 0; p_index < client_num; p_index++)
 		if (p_index != index)
 			write(*(P_list[p_index]->get_sock()), boost::asio::buffer(msg));
+}
+void Game::play()
+{
+	for (int p_index =0; p_index <client_num; p_index++)
+	{
+		cout << "in play function:" << endl;
+		boost::asio::streambuf buff;
+		read_until(*(P_list[p_index]->get_sock()), buff, '\n');
+		string msg = buffer_cast<const char*>(buff.data());
+		msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
+		cout << "dice numbers is:" << msg << endl;
+		broadcast(p_index, msg);
+	}
 }
 int main()
 {
