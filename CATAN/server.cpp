@@ -230,12 +230,17 @@ Game::Game()
 	while (idx < client_num)
 	{
 		P_list.push_back(new Player(ref(io), ref(acc)));
-		recieve_name(idx);
-		//trds.push_back(new thread(this->recieve_name,idx));
+		//recieve_name(idx);
+		trds.push_back(new thread(&Game::recieve_name,this,idx));
 		++idx;
 	}
 
 	acc.close();
+
+	for (int i = 0; i < client_num; ++i)
+	{
+		trds[i]->join();
+	}
 
 	make_ground();
 
@@ -246,10 +251,6 @@ Game::Game()
 }
 Game::~Game()
 {
-	//for (int i = 0; i < client_num; ++i)
-	//{
-	//	trds[i]->join();
-	//}
 }
 
 void Game::recieve_name(int p_index)

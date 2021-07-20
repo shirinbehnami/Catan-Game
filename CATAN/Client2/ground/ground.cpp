@@ -446,8 +446,9 @@ void ground::disabel_nodes()
         {
             m_nodes[id]->setEnabled(false);
             m_nodes[id]->setVisible(false);
-            qApp->processEvents();
         }
+    show();
+    qApp->processEvents();
 }
 void ground::update_node(int k,int pl_num)
 {
