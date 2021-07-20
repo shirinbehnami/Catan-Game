@@ -69,7 +69,7 @@ void MainWindow::send_number_of_player()
     }
     else
     {
-        //input = "1";
+        input = "2";
         client_num = input.toInt();
         P->send(input);
         make_ground();

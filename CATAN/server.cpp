@@ -335,6 +335,18 @@ void Game::play()
 		msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
 		cout << "dice numbers is:" << msg << endl;
 		broadcast(p_index, msg);
+
+		int sum;
+		sscanf_s(msg.c_str(), "%d", &sum);
+		if (((sum / 10) + (sum % 10)) == 7)
+		{
+			read_until(*(P_list[p_index]->get_sock()), buff, '\n');
+			string msg = buffer_cast<const char*>(buff.data());
+			msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
+			cout << "robber location is:" << msg << endl;
+			Sleep(1);
+			broadcast(p_index, msg);
+		}
 	}
 }
 void Game::broadcast(int index, string msg)

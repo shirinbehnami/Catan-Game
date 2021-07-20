@@ -60,7 +60,6 @@ void game::opening(int n)
              sscanf(s.substr(end+1,s.length()-1).c_str(), "%d", &n2);
              g->update_node(n1,turn);
              g->update_roads(n2,turn);
-             //?
              qApp->processEvents();
              opening(n);
          }
@@ -71,8 +70,9 @@ void game::opening(int n)
 void game::make_road(int n)
 {
     g->disabel_nodes();
-    g->enabel_roads(p->get_obj_built().toInt());
-    //?
+
+    int pos = p->get_obj_built().lastIndexOf(QChar('-'));
+    g->enabel_roads(((p->get_obj_built()).left(pos)).toInt());
     qApp->processEvents();
     QMetaObject::Connection * const c = new QMetaObject::Connection;
     *c = connect(g, &ground::turn_pressed, [this,c,n](){
@@ -92,7 +92,6 @@ void game::opening_turn_finish(int n)
     }
     p->clean_obj_built_string();
     g->disabel_roads();
-    //?
     qApp->processEvents();
     opening(n);
 }
@@ -114,7 +113,22 @@ void game::play()
             g->disabel_dice();
             p->send_dice();
             int sum = update_dice(p->get_dice());
-            g->Card_distribution(p,sum);
+
+            if(sum == 7)
+            {
+                g->changeRobberLocation();
+
+                QMetaObject::Connection * const c = new QMetaObject::Connection;
+                 *c = connect(g, &ground::robber_change, [this,c](){
+                    QObject::disconnect(*c);
+                    delete c;
+                    _sleep(1);
+                    p->send(QString::number(robber::getRobber_index()));
+                 });
+            }
+            else
+                g->Card_distribution(p,sum);
+
             qApp->processEvents();
             play();
         });
@@ -123,7 +137,15 @@ void game::play()
     {
         QString msg=p->recieve();
         int sum=update_dice(msg);
-        g->Card_distribution(p,sum);
+
+        if(sum == 7)
+        {
+            QString msg=p->recieve();
+            g->changeRobberLocation(msg.toInt());
+        }
+        else
+            g->Card_distribution(p,sum);
+
         qApp->processEvents();
         play();
     }

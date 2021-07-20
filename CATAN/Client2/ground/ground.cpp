@@ -50,6 +50,9 @@ void ground::set_hexagonal()
         labels[id]=new QLabel(this);
         labels[id]-> setGeometry(QRect(m_hexagonal[id]->x()+40, m_hexagonal[id]->y()+50, 40, 30));
         labels[id]->setStyleSheet("color:white;font:bold;" "font-size:25px;");
+
+        QObject::connect(m_hexagonal[id], &QPushButton::pressed, this,
+                [=]() { robber_change(); });
     }
 
     for (int id = 0; id < water_num; ++id)
@@ -307,7 +310,22 @@ void ground::set_road(int pl_num)
         connect(m_roads[id], &roads::clicked, this,[=]() { ChangeShaperoad(pl_num); });
      }
 }
-//void ground::set_bridge();
+void ground::set_robber(int desert_num)
+{
+    for(int i=0; i<hex_num; i++)
+    {
+        Robber[i]=new robber(i,this);
+
+        Robber[i]->setStyleSheet("border:none;outline:none;color:white;font:bold;""font-size:25px;");
+        Robber[i]->setMinimumSize(QSize(50,80));
+        Robber[i]->setIconSize(QSize(40,40));
+        Robber[i]-> setGeometry(QRect(m_hexagonal[i]->x()+10, m_hexagonal[i]->y()+35, 40, 40));
+        if(i==desert_num)
+        {
+            Robber[i]->setState(robber::Robber);
+        }
+    }
+}
 
 int ground::setResources(string s)
 {
@@ -503,9 +521,8 @@ void ground::disabel_roads()
 }
 void ground::enabel_roads(int node_index)
 {
-        vector<roads*>V=roadmap[node_index];
-        for(auto &p:V)
-            p->setEnabled(true);
+    for(int i=0;i<roadmap[node_index].size();i++)
+          m_roads[roadmap[node_index][i]]->setEnabled(true);
 }
 void ground::update_roads(int k, int pl_num)
 {
@@ -588,8 +605,9 @@ void ground::ChangeShapenode(int pl_num)
              BT->setState(node::house);
          }
 
-         emit ColorShapenode();
          emit obj_created(BT->get_index());
+         emit ColorShapenode();
+
     }
     else
         QMessageBox::information(this, tr("error"),"you can't build in this position");
@@ -629,6 +647,55 @@ void ground::ChangeShaperoad(int pl_num)
 void ground::next_turn_pressed()
 {
     emit turn_pressed();
+}
+
+bool ground::check_node(node* n,int pl_num)
+{
+    if(n->get_color()!="")
+        return false;
+    vector<int> V=node_neighberhood[n->get_index()];
+    for(auto &p:V)
+    {
+        qDebug()<<"p is:"+QString::number(p);
+        if(m_nodes[p]->get_color()==(*city_colors[pl_num-1]))
+            return false;
+    }
+    return true;
+
+}
+bool ground::check_node_in_game(node* n,int pl_num)
+{
+     bool condition1=check_node(n,pl_num);
+     bool condition2=false;
+    vector<int> R=roadmap[n->get_index()];
+    for(auto &p:R)
+        if(m_roads[p]->get_color()==(*city_colors[pl_num-1]))
+            condition2=true;
+    return condition1 && condition2;
+
+}
+void ground::create_node_neighberhood()
+{
+    for(const auto &p:hex_neighberhood)
+    {
+        vector<int>V=p.second;
+        for(int i=1;i<6;i++)
+        {
+            int val=V[i];
+            int val2=V[i-1];
+            node_neighberhood[val].push_back(val2);
+            node_neighberhood[val2].push_back(val);
+        }
+        node_neighberhood[V[0]].push_back(V[5]);
+        node_neighberhood[V[5]].push_back(V[0]);
+    }
+    //remove repititions
+    for(auto &p:node_neighberhood)
+    {
+        vector<int>::iterator ip;
+        ip=unique(p.second.begin(),p.second.begin()+p.second.size());
+        p.second.resize(distance(p.second.begin(),ip));
+    }
 }
 
 void ground::Card_distribution(Player* p)
@@ -687,51 +754,20 @@ void ground::Card_distribution(Player* p,int sum)
     }
 }
 
-bool ground::check_node(node* n,int pl_num)
+void ground::changeRobberLocation()
 {
-    if(n->get_color()!="")
-        return false;
-    vector<int> V=node_neighberhood[n->get_index()];
-    for(auto &p:V)
-    {
-        qDebug()<<"p is:"+QString::number(p);
-        if(m_nodes[p]->get_color()==(*city_colors[pl_num-1]))
-            return false;
-    }
-    return true;
+    robber* BT=(robber*)sender();
 
+    QMetaObject::Connection * const c = new QMetaObject::Connection;
+     *c = connect(this, &ground::robber_change, [this,c,BT](){
+        QObject::disconnect(*c);
+        delete c;
+        Robber[robber::getRobber_index()]->setState(robber::none);
+        BT->setState(robber::Robber);
+     });
 }
-bool check_node_in_game(node* n,int pl_num)
+void ground::changeRobberLocation(int x)
 {
-     bool condition1=check_node(n,pl_num);
-     bool condition2=false;
-    vector<roads*> R=roadmap[n->get_index()];
-    for(auto &p:R)
-        if(p->get_color()==(*city_colors[pl_num-1]))
-            condition2=true;
-    return condition1 && condition2;
-
-}
-void ground::create_node_neighberhood()
-{
-    for(const auto &p:hex_neighberhood)
-    {
-        vector<int>V=p.second;
-        for(int i=1;i<6;i++)
-        {
-            int val=V[i];
-            int val2=V[i-1];
-            node_neighberhood[val].push_back(val2);
-            node_neighberhood[val2].push_back(val);
-        }
-        node_neighberhood[V[0]].push_back(V[5]);
-        node_neighberhood[V[5]].push_back(V[0]);
-    }
-    //remove repititions
-    for(auto &p:node_neighberhood)
-    {
-        vector<int>::iterator ip;
-        ip=unique(p.second.begin(),p.second.begin()+p.second.size());
-        p.second.resize(distance(p.second.begin(),ip));
-    }
+    Robber[robber::getRobber_index()]->setState(robber::none);
+    Robber[x]->setState(robber::Robber);
 }

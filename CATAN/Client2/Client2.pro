@@ -18,6 +18,7 @@ SOURCES += \
     ground/hexagonal.cpp \
     ground/node.cpp \
     ground/road.cpp \
+    ground/robber.cpp \
     main.cpp \
     mainwindow.cpp \
     player.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     ground/hexagonal.h \
     ground/node.h \
     ground/road.h \
+    ground/robber.h \
     mainwindow.h \
     player.h
 
@@ -45,3 +47,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     gr.qrc
+
+DISTFILES +=

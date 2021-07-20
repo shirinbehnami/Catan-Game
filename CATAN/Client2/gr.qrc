@@ -40,5 +40,6 @@
         <file>image/road/thirtyNegyellow.png</file>
         <file>image/road/thirtyred.png</file>
         <file>image/road/thirtyyellow.png</file>
+        <file>image/robber.png</file>
     </qresource>
 </RCC>
