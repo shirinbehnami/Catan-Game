@@ -17,8 +17,6 @@ ground::ground(int pl_num,string s,QWidget *parent)
 
     set_node(pl_num);
 
-    this->adjustSize();
-
     string s1,s2;
     int end= s.find('-');
     s1=s.substr(0,end);
@@ -29,9 +27,10 @@ ground::ground(int pl_num,string s,QWidget *parent)
     setwidgets();
     create_node_neighberhood();
 
+    this->adjustSize();
 //-------------------SIGNALS---------------------------
     connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
-
+    connect(rollbtn,SIGNAL(clicked()),this,SLOT(roll()));
  }
 
 ground::~ground()
@@ -67,10 +66,6 @@ void ground::set_node(int pl_num)
     for (int id = 0; id < nodes_num; ++id)
     {
         m_nodes[id]=new node(this);
-        //m_nodes[id]->setStyleSheet("border: none;outline: none");
-        //m_nodes[id]->setFlat(true);
-        //m_nodes[id]->setMinimumSize(QSize(25,30));
-        //m_nodes[id]->setIconSize(QSize(30,30));
         m_nodes[id]->setState(node::none);
         m_nodes[id]->setEnabled(false);
         m_nodes[id]->setVisible(false);
@@ -78,49 +73,41 @@ void ground::set_node(int pl_num)
 
         QObject::connect(m_nodes[id], &QPushButton::pressed, this,
                 [=]() { ChangeShapenode(pl_num); });
-        QMetaObject::Connection * const c = new QMetaObject::Connection;
-        *c = connect(m_nodes[id], &QPushButton::clicked, [this,c](){
-            QObject::disconnect(*c);
-            delete c;
-            qDebug()<<"click";
-        });
-
     }
 
     int c;
     int idx=0;
 
-
-        for(int j=0;j<4;j++)
-        {
-            for(int i=0;i<(11+2*j);i++)
-           {
-                if((j==0 && i!=5 && i!=9 && i!=10) || (j==1 && i!=0 && i!=6) || (j==2 && i!=0 && i!=1 && i!=14) || (j==3 && i!=0 && i!=1 && i!=15 && i!=16))
-                {
-                    if(i%2)
-                        c=-1;
-                    else
-                        c=0;
-                       m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
-                    idx++;
-                }
+    for(int j=0;j<4;j++)
+    {
+        for(int i=0;i<(11+2*j);i++)
+       {
+            if((j==0 && i!=5 && i!=9 && i!=10) || (j==1 && i!=0 && i!=6) || (j==2 && i!=0 && i!=1 && i!=14) || (j==3 && i!=0 && i!=1 && i!=15 && i!=16))
+            {
+                if(i%2)
+                    c=-1;
+                else
+                    c=0;
+                   m_nodes[idx]-> setGeometry(295-((j+1)*42.5)+i*42.5, 140+(j*73)+c*22, 12, 12);
+                idx++;
             }
         }
-        for(int j=0;j<4;j++)
-        {
-           for(int i=0;i<=(16-2*j);i++)
+    }
+    for(int j=0;j<4;j++)
+    {
+       for(int i=0;i<=(16-2*j);i++)
+       {
+           if((j==0 && i!=0 && i!=15 && i!=16) || (j==1 && i!=14) || (j==2) ||(j==3 && i!=7))
            {
-               if((j==0 && i!=0 && i!=15 && i!=16) || (j==1 && i!=14) || (j==2) ||(j==3 && i!=7))
-               {
-                    if(i%2)
-                        c=-1;
-                    else
-                        c=0;
-                     m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
-                     idx++;
-               }
-            }
+                if(i%2)
+                    c=-1;
+                else
+                    c=0;
+                 m_nodes[idx]-> setGeometry(295+((j-4)*42.5)+i*42.5, 140+((j+3)*73+48)-c*22, 12, 12);
+                 idx++;
+           }
         }
+    }
 }
 void ground::set_road(int pl_num)
 {
@@ -313,7 +300,7 @@ void ground::set_road(int pl_num)
      {
         m_roads[id]->setStyleSheet("border:none;outline:none;color:white;");
         m_roads[id]->setMinimumSize(QSize(40,70));
-        m_roads[id]->setIconSize(QSize(55,55));
+        m_roads[id]->setIconSize(QSize(50,50));
         m_roads[id]->setEnabled(false);
         m_roads[id]->set_index(id);
 
@@ -376,7 +363,7 @@ void ground::setdice(int a,int b)
     QString B="url(:/image/dice/"+QString::number(b)+".png);";
     if(!a and !b)
     {
-    dice[0]->setStyleSheet("QLabel{"
+        dice[0]->setStyleSheet("QLabel{"
                                "background-image:url(:/image/dice/1.png);"
                                "background-position:center;"
                                "background-origin:content;"
@@ -417,6 +404,8 @@ void ground::roll()
     int a=rand()%6+1;
     int b=rand()%6+1;
     setdice(a,b);
+    int s=10*a+b;
+    emit roll_pressed(s);
 }
 void ground::setwidgets()
 {
@@ -430,6 +419,7 @@ void ground::setwidgets()
     rollbtn->setGeometry(950,520,100,40);
     rollbtn->setText("Roll!");
     rollbtn->setStyleSheet("background-color:rgb(181,144,246);");
+    rollbtn->setEnabled(false);
 
     nextturn=new QPushButton(this);
     nextturn-> setGeometry(950,580,100,40);
@@ -456,6 +446,7 @@ void ground::disabel_nodes()
         {
             m_nodes[id]->setEnabled(false);
             m_nodes[id]->setVisible(false);
+            qApp->processEvents();
         }
 }
 void ground::update_node(int k,int pl_num)
@@ -479,7 +470,7 @@ void ground::update_node(int k,int pl_num)
 
     else if(pl_num==3)
     {
-        m_nodes[k]->set_color("blude");
+        m_nodes[k]->set_color("blue");
         m_nodes[k]->setState(node::house);
     }
 
@@ -524,7 +515,7 @@ void ground::update_roads(int k, int pl_num)
     }
     else if(pl_num==3)
     {
-        m_roads[k]->set_color("blude");
+        m_roads[k]->set_color("blue");
         m_roads[k]->setState();
     }
     else
@@ -533,8 +524,11 @@ void ground::update_roads(int k, int pl_num)
         m_roads[k]->setState();
     }
     m_roads[k]->set_is_built(true);
+    m_roads[k]->setEnabled(true);
 
 }
+void ground::disabel_dice(){rollbtn->setEnabled(false);}
+void ground::enabel_dice(){rollbtn->setEnabled(true);}
 void ground::set_city_colors()
 {
     for(int i=0;i<4;i++)
@@ -598,10 +592,6 @@ void ground::ChangeShaperoad(int pl_num)
     roads* BT=(roads*)sender();
     //if(check_node(BT,pl_num))
     //{
-     //BT->setStyleSheet("border: none;outline: none");
-     //BT->setIconSize(QSize(70,70));
-     //BT->setMinimumSize(QSize(40,45));
-     //BT->setGeometry(BT->x()-20,BT->y()-20,BT->width(),BT->height());
      if(pl_num==1)
      {
          BT->set_color("yellow");
@@ -663,6 +653,33 @@ void ground::Card_distribution(Player* p)
     }
 
 }
+void ground::Card_distribution(Player* p,int sum)
+{
+
+    QString roll_num = QString::number(sum);
+
+    for (int i=0;i<hex_num;i++)
+    {
+         if(labels[i]->text()==roll_num)
+         {
+             for(int j=0;j<hex_neighberhood[i].size();j++)
+             {
+                 if(m_nodes[hex_neighberhood[i][j]]->get_state()!="none" && m_nodes[hex_neighberhood[i][j]]->get_color()==p->get_string_color())
+                 {
+                     QString s = m_hexagonal[i]->getState();
+
+                     if(s!="desert")
+                     {
+                         cards* c = new SourceCard(s,this);
+                         c->show();
+                         p->Addcard(c);
+                     }
+                 }
+             }
+         }
+    }
+}
+
 bool ground::check_node(node* n,int pl_num)
 {
     if(n->get_color()!="")

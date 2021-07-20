@@ -17,6 +17,20 @@ Player::Player(QObject *parent) : QObject(parent)
 
 }
 
+QString Player::get_string_color()
+{
+    switch (myplayernum) {
+    case 1:
+        return "yellow";
+    case 2:
+        return "red";
+    case 3:
+        return "blue";
+    default:
+        return "green";
+    }
+}
+
 void Player::set_playernum(int n)
 {
     myplayernum=n;
@@ -55,24 +69,21 @@ void Player::send(QString s)
     QByteArray text;
     text=s.toUtf8();
     text+='\n';
-    socket->waitForBytesWritten(20000);
+    socket->waitForBytesWritten(30000);
     socket->write(text);
 }
 QString Player::recieve()
 {
     QByteArray* text=new QByteArray();
-    socket->waitForReadyRead(20000);
+    socket->waitForReadyRead(30000);
     *text =socket->readAll();
     qDebug()<<*text;
     return QString::fromUtf8(*text);
-
-
 }
 
 void Player::Addcard(cards* c)
 {
     QString s = c->get_state();
-    qDebug()<<s;
     mycard[s].push_back(c);
     updatecards();
 }

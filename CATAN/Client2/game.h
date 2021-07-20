@@ -16,16 +16,17 @@ public:
 
     void opening(int n);
 
-   // void play();
+    void play();
+    int update_dice(QString s);
 private:
     ground* g;
     Player* p;
+
     int turn;
     int client_num;
 
-
 private slots:
-    void turn_finish(int n);
+    void opening_turn_finish(int n);
     void make_road(int n);
 };
 

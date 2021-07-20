@@ -211,7 +211,7 @@ private:
 	void number_of_player(int p_index);
 	void recieve_name(int p_index);
 	void opening();
-	//void play();
+	void play();
 
 	int client_num;
 	vector<Player*> P_list;
@@ -231,6 +231,7 @@ Game::Game()
 	{
 		P_list.push_back(new Player(ref(io), ref(acc)));
 		recieve_name(idx);
+		//trds.push_back(new thread(this->recieve_name,idx));
 		++idx;
 	}
 
@@ -240,7 +241,7 @@ Game::Game()
 
 	opening();
 
-	//play();
+	play();
 
 }
 Game::~Game()
@@ -251,30 +252,6 @@ Game::~Game()
 	//}
 }
 
-void Game::make_ground()
-{
-	int desert_num = 0;
-
-	string s = gr->setResources(desert_num);
-	gr->setnumbers(desert_num, s);
-
-	cout << endl << s;
-	for (int p_index = 0; p_index < client_num; p_index++)
-	{
-		write(*(P_list[p_index]->get_sock()), boost::asio::buffer(s));
-	}
-}
-
-void Game::number_of_player(int p_index)
-{
-	boost::asio::streambuf buff;
-	read_until(*(P_list[p_index]->get_sock()), buff, '\n');
-	string msg = buffer_cast<const char*>(buff.data());
-	sscanf_s(msg.c_str(), "%d", &client_num);
-
-	//-----------------------
-	//client_num = 1;
-}
 void Game::recieve_name(int p_index)
 {
 	boost::asio::streambuf buff;
@@ -297,6 +274,30 @@ void Game::recieve_name(int p_index)
 		write(*(P_list[p_index]->get_sock()), boost::asio::buffer(to_string(client_num)));
 	}
 }
+void Game::number_of_player(int p_index)
+{
+	boost::asio::streambuf buff;
+	read_until(*(P_list[p_index]->get_sock()), buff, '\n');
+	string msg = buffer_cast<const char*>(buff.data());
+	sscanf_s(msg.c_str(), "%d", &client_num);
+
+	//-----------------------
+	//client_num = 1;
+}
+void Game::make_ground()
+{
+	int desert_num = 0;
+
+	string s = gr->setResources(desert_num);
+	gr->setnumbers(desert_num, s);
+
+	cout << endl << s;
+	for (int p_index = 0; p_index < client_num; p_index++)
+	{
+		write(*(P_list[p_index]->get_sock()), boost::asio::buffer(s));
+	}
+}
+
 void Game::opening()
 {
 
@@ -307,7 +308,7 @@ void Game::opening()
 		read_until(*(P_list[p_index]->get_sock()), buff, '\n');
 		string msg = buffer_cast<const char*>(buff.data());
 		msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
-		cout << endl << msg;
+		//cout << endl << msg;
 		broadcast(p_index, msg);
 	}
 
@@ -319,6 +320,19 @@ void Game::opening()
 		string msg = buffer_cast<const char*>(buff.data());
 		msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
 		cout << endl << msg;
+		broadcast(p_index, msg);
+	}
+}
+void Game::play()
+{
+	for (int p_index = 0; p_index < client_num; p_index++)
+	{
+		cout << "in play function:" << endl;
+		boost::asio::streambuf buff;
+		read_until(*(P_list[p_index]->get_sock()), buff, '\n');
+		string msg = buffer_cast<const char*>(buff.data());
+		msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
+		cout << "dice numbers is:" << msg << endl;
 		broadcast(p_index, msg);
 	}
 }

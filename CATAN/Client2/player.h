@@ -21,6 +21,8 @@ public:
 
     bool is_my_turn(){return my_turn;}
     QColor get_color(){return mycolor;}
+    QString get_string_color();
+
 
     void connect();
 
@@ -33,14 +35,19 @@ public:
     void clean_obj_built_string(){obj_built="";}
     QString get_obj_built(){return obj_built;}
     void send_obj(){send(obj_built);}
+    void send_dice(){send(dice);}
+
+    QString get_dice(){return dice;}
 
 private:
     QTcpSocket* socket;
+
     int myplayernum;
     int score;
     bool my_turn;
     QString obj_built;
     QColor mycolor;
+    QString dice;
     QMap<QString,QVector<cards*>> mycard;
 
     void updatecards();
@@ -48,6 +55,7 @@ private:
 public slots:
     void set_my_turn(bool mt){my_turn=mt;}
     void add_obj_to_msg(int index){obj_built+=(QString::number(index)+'-');}
+    void add_dice_to_msg(int s){dice=QString::number(s);}
 
 private slots:
     void addScore(){score++;}
