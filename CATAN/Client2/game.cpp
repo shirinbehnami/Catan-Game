@@ -71,7 +71,7 @@ void game::opening(int n)
 void game::make_road(int n)
 {
     g->disabel_nodes();
-    g->enabel_roads();
+    g->enabel_roads(p->get_obj_built().toInt());
     //?
     qApp->processEvents();
     QMetaObject::Connection * const c = new QMetaObject::Connection;
