@@ -503,9 +503,9 @@ void ground::disabel_roads()
 }
 void ground::enabel_roads(int node_index)
 {
-        vector<roads*>V=roadmap[node_index];
+        vector<int>V=roadmap[node_index];
         for(auto &p:V)
-            p->setEnabled(true);
+            m_roads[p]->setEnabled(true);
 }
 void ground::update_roads(int k, int pl_num)
 {
@@ -701,13 +701,13 @@ bool ground::check_node(node* n,int pl_num)
     return true;
 
 }
-bool check_node_in_game(node* n,int pl_num)
+bool ground::check_node_in_game(node* n,int pl_num)
 {
      bool condition1=check_node(n,pl_num);
      bool condition2=false;
-    vector<roads*> R=roadmap[n->get_index()];
+    vector<int> R=roadmap[n->get_index()];
     for(auto &p:R)
-        if(p->get_color()==(*city_colors[pl_num-1]))
+        if(m_roads[p]->get_color()==(*city_colors[pl_num-1]))
             condition2=true;
     return condition1 && condition2;
 

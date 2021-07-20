@@ -13,6 +13,7 @@ SOURCES += \
     card/card.cpp \
     card/sourcecard.cpp \
     card/specialscorecard.cpp \
+    chart.cpp \
     game.cpp \
     ground/ground.cpp \
     ground/hexagonal.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     card/card.h \
     card/sourcecard.h \
     card/specialscorecard.h \
+    chart.h \
     game.h \
     ground/ground.h \
     ground/hexagonal.h \

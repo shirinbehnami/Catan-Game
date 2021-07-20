@@ -5,6 +5,8 @@
 game::game(string s,Player* _p,int _cn,QObject *parent): QObject(parent)
 {
     g=new ground(_p->get_playernum(),s);
+    ch=new class::chart();
+    ch->set(g);
     p=_p;
     p->clean_obj_built_string();
     turn=0;
@@ -41,6 +43,7 @@ void game::opening(int n)
           if(p->get_playernum()==turn)
           {
                p->set_my_turn(true);
+               ch->turn_on(p->get_playernum());
                g->enabel_nodes();
                qApp->processEvents();
                QMetaObject::Connection * const c = new QMetaObject::Connection;
@@ -62,8 +65,12 @@ void game::opening(int n)
              g->update_roads(n2,turn);
              //?
              qApp->processEvents();
+             ch->update_chart(turn,1);
+             ch->turn_off(turn);
              opening(n);
+
          }
+
 
     }
 }
@@ -71,7 +78,8 @@ void game::opening(int n)
 void game::make_road(int n)
 {
     g->disabel_nodes();
-    g->enabel_roads(p->get_obj_built().toInt());
+    int pos=(p->get_obj_built()).lastIndexOf(QChar('-'));
+    g->enabel_roads(((p->get_obj_built()).left(pos)).toInt());
     //?
     qApp->processEvents();
     QMetaObject::Connection * const c = new QMetaObject::Connection;
@@ -94,6 +102,8 @@ void game::opening_turn_finish(int n)
     g->disabel_roads();
     //?
     qApp->processEvents();
+    ch->update_chart(turn,1);
+    ch->turn_off(turn);
     opening(n);
 }
 
@@ -103,7 +113,7 @@ void game::play()
 
     if(turn>client_num)
         turn = 1;
-
+        ch->turn_on(turn);
     if(p->get_playernum()==turn)
     {
         g->enabel_dice();

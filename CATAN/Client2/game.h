@@ -4,7 +4,7 @@
 #include <card/sourcecard.h>
 #include <player.h>
 #include <iostream>
-
+#include <chart.h>
 class game:public QObject
 {
 Q_OBJECT
@@ -21,9 +21,11 @@ public:
 private:
     ground* g;
     Player* p;
+    chart* ch;
 
     int turn;
     int client_num;
+
 
 private slots:
     void opening_turn_finish(int n);
