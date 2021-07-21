@@ -107,3 +107,44 @@ void Player::updatecards()
           }
     }
 }
+bool Player::check_budget(QString structure)
+{
+
+    if(structure=="house")
+    {
+        QString s="0000";
+        QVector<cards*>v=mycard["house"];
+        for(auto &p: v )
+        {
+            if(p->get_state()=="sheep")
+                s[0]='1';
+            else if(p->get_state()=="wood")
+                s[1]='1';
+            else if(p->get_state()=="wheat")
+                s[2]='1';
+            else if(p->get_state()=="clay")
+                s[3]='1';
+
+            if(s=="1111")
+                return true;
+
+        }
+        return false;
+    }
+    else if(structure=="road")
+    {
+        QString s="00";
+        QVector<cards*>v=mycard["house"];
+        for(auto &p: v )
+        {
+            if(p->get_state()=="wood")
+                s[0]='1';
+           else if(p->get_state()=="clay")
+                s[1]='1';
+            if(s=="11")
+                return true;
+        }
+        return false;
+    }
+    //to be continiued...
+}

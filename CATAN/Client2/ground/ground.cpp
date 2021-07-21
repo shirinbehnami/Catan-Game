@@ -422,10 +422,8 @@ void ground::setdice(int a,int b)
 }
 void ground::roll()
 {
-    //srand(time(0));
     int a=rand()%6+1;
-    //int b=rand()%6+1;
-    int b= 7-a;
+    int b=rand()%6+1;
     setdice(a,b);
     int s=10*a+b;
     emit roll_pressed(s);
@@ -526,6 +524,7 @@ void ground::disabel_roads()
 }
 void ground::enabel_roads(int node_index)
 {
+
     for(int i=0;i<roadmap[node_index].size();i++)
           m_roads[roadmap[node_index][i]]->setEnabled(true);
 }
@@ -570,6 +569,8 @@ void ground::Invisible_all()
         m_roads[i]->setVisible(false);
     }
 
+    qApp->processEvents();
+
 }
 void ground::visible_all()
 {
@@ -582,6 +583,8 @@ void ground::visible_all()
     {
         m_roads[i]->setVisible(true);
     }
+
+    qApp->processEvents();
 }
 void ground::set_city_colors()
 {
@@ -645,8 +648,6 @@ void ground::ChangeShapenode(int pl_num)
 void ground::ChangeShaperoad(int pl_num)
 {
     roads* BT=(roads*)sender();
-    //if(check_node(BT,pl_num))
-    //{
      if(pl_num==1)
      {
          BT->set_color("yellow");
@@ -670,9 +671,6 @@ void ground::ChangeShaperoad(int pl_num)
 
      emit ColorShaperoad();
      emit obj_created(BT->get_index());
-    //}
-    //else
-        //QMessageBox::information(this, tr("error"),"you can't build in this position");
 }
 void ground::next_turn_pressed()
 {
@@ -787,7 +785,6 @@ void ground::Card_distribution(Player* p,int sum)
 
 void ground::changeRobberLocation(robber* RB)
 {
-
     Robber[robber::getRobber_index()]->setState(robber::none);
     RB->setState(robber::Robber);
 
@@ -798,3 +795,5 @@ void ground::changeRobberLocation(int x)
     Robber[robber::getRobber_index()]->setState(robber::none);
     Robber[x]->setState(robber::Robber);
 }
+
+
