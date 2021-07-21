@@ -6,6 +6,7 @@
 #include<QDebug>
 #include<QMainWindow>
 
+#include <card/card.h>
 class cards;
 
 class Player: public QObject
@@ -22,7 +23,7 @@ public:
     bool is_my_turn(){return my_turn;}
     QColor get_color(){return mycolor;}
     QString get_string_color();
-
+    QString get_dice(){return dice;}
 
     void connect();
 
@@ -37,7 +38,7 @@ public:
     void send_obj(){send(obj_built);}
     void send_dice(){send(dice);}
 
-    QString get_dice(){return dice;}
+    bool check_budget(QString structure);
 
 private:
     QTcpSocket* socket;

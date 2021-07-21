@@ -15,7 +15,7 @@ public:
 private:
     QLabel* score_titel;
     QLabel* name_titel;
-    QLabel* names[3];
+    QLabel* names[3];//not used yet
     QLabel* scores[3];
 
     int score[3];

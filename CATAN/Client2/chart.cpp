@@ -18,10 +18,13 @@ void chart::set(ground* g)
         names[i]=new QLabel(g);
         names[i]->setStyleSheet("background-color:rgb(181,144,246);");
         names[i]->setText("player"+QString::number(i+1));
+
         scores[i]=new QLabel(g);
         scores[i]->setStyleSheet("background-color:rgb(181,144,246);");
         scores[i]->setText("0");
         scores[i]->setAlignment(Qt::AlignCenter);
+
+        score[i]=0;
     }
     set_position();
 }
