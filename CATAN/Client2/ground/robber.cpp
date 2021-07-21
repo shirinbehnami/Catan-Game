@@ -1,26 +1,30 @@
 #include "robber.h"
 
+#include <QDebug>
+
+int robber::robber_index = 0;
+
 robber::robber(int id,QWidget *parent)
       : QPushButton(parent),
         m_state(robber::none),
         index(id)
 {
     this->updaterobber(m_state);
-    QObject::connect(this, SIGNAL(stateChanged(State)), this, SLOT(updaterobber(State)));
+
+    connect(this, SIGNAL(stateChanged(State)), this, SLOT(updaterobber(State)));
 }
 
 robber::~robber()
 {
-
 }
 
 void robber::setState(State state) {
-    if (m_state != state) {
         m_state = state;
-        if(m_state==Robber)
-            robber_index = index;
+        if(m_state==robber::Robber)
+        {
+            robber::robber_index = index;
+        }
         emit stateChanged(state);
-    }
 }
 
 QPixmap robber::stateToPixmap(State state) {
@@ -36,11 +40,3 @@ QPixmap robber::stateToPixmap(State state) {
 void robber::updaterobber(State state) {
     this->setIcon(robber::stateToPixmap(state));
 }
-
-
-
-
-
-
-
-

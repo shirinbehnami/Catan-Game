@@ -1,11 +1,11 @@
 #ifndef ROBBER_H
 #define ROBBER_H
 
-#include "hexagonal.h"
-#include "ground.h"
-
 #include<QPushButton>
 #include <QObject>
+
+#include <player.h>
+#include<card/card.h>
 
 class robber:public QPushButton
 {   
@@ -23,7 +23,6 @@ public:
     explicit robber(int id,QWidget *parent = nullptr);
     virtual ~robber();
 
-    void Do();
 
     State state() const { return m_state; }
     void setState(State State);
@@ -42,6 +41,7 @@ private:
 
 private slots:
     void updaterobber(State state);
+
 };
 
 #endif // ROBBER_H

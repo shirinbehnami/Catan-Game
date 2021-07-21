@@ -18,7 +18,6 @@
 #include <card/sourcecard.h>
 #include <player.h>
 
-
 using namespace std;
 QT_BEGIN_NAMESPACE
 namespace Ui { class ground; }
@@ -57,6 +56,9 @@ public:
     void enabel_dice();
     void disabel_dice();
 
+    void Invisible_all();
+    void visible_all();
+
     void set_city_colors();
     bool check_node(node* n,int pl_num);
     bool check_node_in_game(node* n,int pl_num);
@@ -64,7 +66,6 @@ public:
     void Card_distribution(Player* p);
     void Card_distribution(Player* p,int sum);
 
-    void changeRobberLocation();
     void changeRobberLocation(int x);
 
 signals:
@@ -73,7 +74,7 @@ signals:
     void turn_pressed();
     void obj_created(int index);
     void roll_pressed(int n);
-
+    void robber_change();
 
 private:
     Ui::ground *ui;
@@ -229,7 +230,7 @@ public slots:
     void ChangeShapenode(int pl_num);
     void ChangeShaperoad(int pl_num);
     void next_turn_pressed();
-    void robber_change();
+    void changeRobberLocation(robber* RB);
 
 };
 #endif // GROUND_H

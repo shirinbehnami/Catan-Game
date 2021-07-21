@@ -64,7 +64,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex1">
@@ -112,7 +112,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex2">
@@ -160,7 +160,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex8">
@@ -208,7 +208,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex7">
@@ -256,7 +256,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex6">
@@ -304,7 +304,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex5">
@@ -352,7 +352,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex3">
@@ -400,7 +400,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex4">
@@ -448,7 +448,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex9">
@@ -496,7 +496,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex10">
@@ -544,7 +544,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex11">
@@ -592,7 +592,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex12">
@@ -640,7 +640,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex13">
@@ -688,7 +688,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex14">
@@ -736,7 +736,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex15">
@@ -784,7 +784,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex16">
@@ -832,7 +832,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex17">
@@ -880,7 +880,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex18">
@@ -928,7 +928,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water11">
@@ -976,7 +976,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water22">
@@ -1024,7 +1024,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water23">
@@ -1072,7 +1072,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water26">
@@ -1120,7 +1120,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water27">
@@ -1168,7 +1168,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water30">
@@ -1216,7 +1216,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water31">
@@ -1264,7 +1264,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water33">
@@ -1312,7 +1312,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water34">
@@ -1360,7 +1360,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water12">
@@ -1408,7 +1408,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water13">
@@ -1456,7 +1456,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water14">
@@ -1504,7 +1504,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water17">
@@ -1552,7 +1552,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water18">
@@ -1600,7 +1600,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water36">
@@ -1648,7 +1648,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water37">
@@ -1696,7 +1696,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water38">
@@ -1744,7 +1744,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water39">
@@ -1792,7 +1792,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water40">
@@ -1840,7 +1840,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water41">
@@ -1888,7 +1888,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex27">
@@ -1936,7 +1936,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water35">
@@ -1984,7 +1984,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex26">
@@ -2032,7 +2032,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water32">
@@ -2080,7 +2080,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water28">
@@ -2128,7 +2128,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water29">
@@ -2176,7 +2176,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water21">
@@ -2224,7 +2224,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex25">
@@ -2272,7 +2272,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water24">
@@ -2320,7 +2320,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water25">
@@ -2368,7 +2368,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water16">
@@ -2416,7 +2416,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex24">
@@ -2464,7 +2464,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water19">
@@ -2512,7 +2512,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water20">
@@ -2560,7 +2560,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water10">
@@ -2608,7 +2608,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex22">
@@ -2656,7 +2656,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex23">
@@ -2704,7 +2704,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water15">
@@ -2752,7 +2752,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water6">
@@ -2800,7 +2800,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex19">
@@ -2848,7 +2848,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex20">
@@ -2896,7 +2896,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water7">
@@ -2944,7 +2944,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="hex21">
@@ -2992,7 +2992,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water8">
@@ -3040,7 +3040,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water9">
@@ -3088,7 +3088,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water0">
@@ -3136,7 +3136,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water1">
@@ -3184,7 +3184,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water3">
@@ -3232,7 +3232,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water2">
@@ -3280,7 +3280,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water5">
@@ -3328,7 +3328,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="hexagonal" name="water4">
@@ -3376,7 +3376,7 @@
      </size>
     </property>
     <property name="flat">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
   </widget>

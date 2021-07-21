@@ -98,9 +98,9 @@ void game::opening_turn_finish(int n)
 
 void game::play()
 {
-    turn++;
-
-    if(turn>client_num)
+    if(turn<1)
+        turn = 1;
+    else if(turn>client_num)
         turn = 1;
 
     if(p->get_playernum()==turn)
@@ -116,18 +116,22 @@ void game::play()
 
             if(sum == 7)
             {
-                g->changeRobberLocation();
+                g->Invisible_all();
 
                 QMetaObject::Connection * const c = new QMetaObject::Connection;
                  *c = connect(g, &ground::robber_change, [this,c](){
                     QObject::disconnect(*c);
                     delete c;
-                    _sleep(1);
                     p->send(QString::number(robber::getRobber_index()));
+                    g->visible_all();
+                    turn++;
                  });
             }
             else
+            {
                 g->Card_distribution(p,sum);
+                turn++;
+            }
 
             qApp->processEvents();
             play();
@@ -147,6 +151,7 @@ void game::play()
             g->Card_distribution(p,sum);
 
         qApp->processEvents();
+        turn++;
         play();
     }
 }
@@ -154,6 +159,7 @@ void game::play()
 int game::update_dice(QString s)
 {
     int x=s.toInt();
+    qDebug()<<x/10<<"-"<<x%10;
     g->setdice(x/10,x%10);
     return x/10+x%10;
 }

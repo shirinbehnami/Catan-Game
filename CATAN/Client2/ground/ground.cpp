@@ -2,6 +2,7 @@
 #include "ui_ground.h"
 
 #include <algorithm>
+#include <QLabel>
 
 ground::ground(int pl_num,string s,QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +28,10 @@ ground::ground(int pl_num,string s,QWidget *parent)
     setwidgets();
     create_node_neighberhood();
 
+    set_robber(desert_num);
+
     this->adjustSize();
+
 //-------------------SIGNALS---------------------------
     connect(nextturn,SIGNAL(clicked()),this,SLOT(next_turn_pressed()));
     connect(rollbtn,SIGNAL(clicked()),this,SLOT(roll()));
@@ -51,8 +55,8 @@ void ground::set_hexagonal()
         labels[id]-> setGeometry(QRect(m_hexagonal[id]->x()+40, m_hexagonal[id]->y()+50, 40, 30));
         labels[id]->setStyleSheet("color:white;font:bold;" "font-size:25px;");
 
-        QObject::connect(m_hexagonal[id], &QPushButton::pressed, this,
-                [=]() { robber_change(); });
+        QObject::connect(m_hexagonal[id], &hexagonal::pressed, this,
+                [=]() { changeRobberLocation(Robber[id]);});
     }
 
     for (int id = 0; id < water_num; ++id)
@@ -418,9 +422,10 @@ void ground::setdice(int a,int b)
 }
 void ground::roll()
 {
-    srand(time(0));
+    //srand(time(0));
     int a=rand()%6+1;
-    int b=rand()%6+1;
+    //int b=rand()%6+1;
+    int b= 7-a;
     setdice(a,b);
     int s=10*a+b;
     emit roll_pressed(s);
@@ -553,6 +558,31 @@ void ground::update_roads(int k, int pl_num)
 }
 void ground::disabel_dice(){rollbtn->setEnabled(false);}
 void ground::enabel_dice(){rollbtn->setEnabled(true);}
+void ground::Invisible_all()
+{
+    for(int i=0;i<nodes_num;i++)
+    {
+        m_nodes[i]->setVisible(false);
+    }
+
+    for(int i=0;i<road_num;i++)
+    {
+        m_roads[i]->setVisible(false);
+    }
+
+}
+void ground::visible_all()
+{
+    for(int i=0;i<nodes_num;i++)
+    {
+        m_nodes[i]->setVisible(true);
+    }
+
+    for(int i=0;i<road_num;i++)
+    {
+        m_roads[i]->setVisible(true);
+    }
+}
 void ground::set_city_colors()
 {
     for(int i=0;i<4;i++)
@@ -656,7 +686,7 @@ bool ground::check_node(node* n,int pl_num)
     vector<int> V=node_neighberhood[n->get_index()];
     for(auto &p:V)
     {
-        qDebug()<<"p is:"+QString::number(p);
+        //qDebug()<<"p is:"+QString::number(p);
         if(m_nodes[p]->get_color()==(*city_colors[pl_num-1]))
             return false;
     }
@@ -715,9 +745,10 @@ void ground::Card_distribution(Player* p)
 
              if(s!="desert")
              {
-                 cards* c = new SourceCard(s,this);
-                 c->show();
-                 p->Addcard(c);
+                 cards* cd = new SourceCard(s,this);
+
+                 cd->show();
+                 p->Addcard(cd);
              }
          }
          if(cnt==3)
@@ -754,17 +785,13 @@ void ground::Card_distribution(Player* p,int sum)
     }
 }
 
-void ground::changeRobberLocation()
+void ground::changeRobberLocation(robber* RB)
 {
-    robber* BT=(robber*)sender();
 
-    QMetaObject::Connection * const c = new QMetaObject::Connection;
-     *c = connect(this, &ground::robber_change, [this,c,BT](){
-        QObject::disconnect(*c);
-        delete c;
-        Robber[robber::getRobber_index()]->setState(robber::none);
-        BT->setState(robber::Robber);
-     });
+    Robber[robber::getRobber_index()]->setState(robber::none);
+    RB->setState(robber::Robber);
+
+    emit robber_change();
 }
 void ground::changeRobberLocation(int x)
 {

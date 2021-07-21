@@ -6,7 +6,7 @@
 #include<QDebug>
 #include<QMainWindow>
 
-class cards;
+#include<card/card.h>
 
 class Player: public QObject
 {

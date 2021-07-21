@@ -326,7 +326,8 @@ void Game::opening()
 }
 void Game::play()
 {
-	for (int p_index = 0; p_index < client_num; p_index++)
+	int p_index = 0;
+	while (p_index < client_num)
 	{
 		cout << "in play function:" << endl;
 		boost::asio::streambuf buff;
@@ -340,13 +341,19 @@ void Game::play()
 		sscanf_s(msg.c_str(), "%d", &sum);
 		if (((sum / 10) + (sum % 10)) == 7)
 		{
-			read_until(*(P_list[p_index]->get_sock()), buff, '\n');
-			string msg = buffer_cast<const char*>(buff.data());
+			Sleep(1);
+			boost::asio::streambuf buff2;
+			read_until(*(P_list[p_index]->get_sock()), buff2, '\n');
+			string msg = buffer_cast<const char*>(buff2.data());
 			msg.erase(std::remove(msg.begin(), msg.end(), '\n'), msg.end());
 			cout << "robber location is:" << msg << endl;
-			Sleep(1);
+			//Sleep(1);
 			broadcast(p_index, msg);
 		}
+
+		p_index++;
+		if (p_index == client_num)
+			p_index = 0;
 	}
 }
 void Game::broadcast(int index, string msg)
