@@ -47,7 +47,7 @@ void chart::update_chart(int index,int change)
 }
 void chart::turn_on(int pl_num)
 {
-    qDebug()<<"turn on.";
+    //qDebug()<<"turn on.";
     names[pl_num-1]->setStyleSheet("background-color:"+colors[pl_num-1]+";");
     scores[pl_num-1]->setStyleSheet("background-color:"+colors[pl_num-1]+";");
 }

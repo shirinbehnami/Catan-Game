@@ -56,11 +56,11 @@ void Player::connect(){
     socket=new QTcpSocket(this);
     socket->connectToHost("127.0.0.1",8080);
     if(socket->waitForConnected(3000)){
-        qDebug()<<"connect!";
+        //qDebug()<<"connect!";
     }
     else
     {
-        qDebug()<<"not connect!";
+        //qDebug()<<"not connect!";
         QApplication::quit();
     }
 }
@@ -78,7 +78,7 @@ QString Player::recieve()
     QByteArray* text=new QByteArray();
     socket->waitForReadyRead(30000);
     *text =socket->readAll();
-    qDebug()<<*text;
+    //qDebug()<<*text;
     return QString::fromUtf8(*text);
 }
 
@@ -110,49 +110,23 @@ void Player::updatecards()
 }
 bool Player::check_budget(QString structure)
 {
-
-    if(structure=="house")
+    for(auto &c: costs[structure])
     {
-        QString s="0000";
-        QVector<cards*>v=mycard["house"];
-        for(auto &p: v )
+        if(mycard[c].size()<1)
         {
-            if(p->get_state()=="sheep")
-                s[0]='1';
-            else if(p->get_state()=="wood")
-                s[1]='1';
-            else if(p->get_state()=="wheat")
-                s[2]='1';
-            else if(p->get_state()=="clay")
-                s[3]='1';
-
-            if(s=="1111")
-                return true;
-
+            return false;
         }
-        return false;
     }
-    else if(structure=="road")
-    {
-        QString s="00";
-        QVector<cards*>v=mycard["road"];
-        for(auto &p: v )
-        {
-            if(p->get_state()=="wood")
-                s[0]='1';
-           else if(p->get_state()=="clay")
-                s[1]='1';
-            if(s=="11")
-                return true;
-        }
-        return false;
-    }
+    return true;
     //to be continiued...
 }
-void Player::pay()
+void Player::pay(QString s)
 {
-   // if(s=="house")
-    {
-
-    }
+   for(auto &c : costs[s])
+   {
+       cards* cd = mycard[c][mycard[c].size()-1];
+       mycard[c].removeAll(cd);
+       delete cd;
+   }
+   updatecards();
 }

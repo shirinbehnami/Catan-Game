@@ -40,7 +40,7 @@ public:
     void send_dice(){send(dice);}
 
     bool check_budget(QString structure);
-    void pay();
+    void pay(QString s);
 
 private:
     QTcpSocket* socket;

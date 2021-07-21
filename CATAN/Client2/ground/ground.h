@@ -223,6 +223,7 @@ private:
     void set_hexagonal();
     void set_node(int pl_num);
     void set_road(int pl_num);
+    void set_bridge();
     void set_robber(int desert_num);
 
 public slots:

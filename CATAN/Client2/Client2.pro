@@ -22,7 +22,8 @@ SOURCES += \
     ground/robber.cpp \
     main.cpp \
     mainwindow.cpp \
-    player.cpp
+    player.cpp \
+    trade.cpp
 
 HEADERS += \
     card/card.h \
@@ -36,7 +37,8 @@ HEADERS += \
     ground/road.h \
     ground/robber.h \
     mainwindow.h \
-    player.h
+    player.h \
+    trade.h
 
 FORMS += \
     ground.ui \

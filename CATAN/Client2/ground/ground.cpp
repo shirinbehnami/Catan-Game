@@ -314,6 +314,88 @@ void ground::set_road(int pl_num)
         connect(m_roads[id], &roads::clicked, this,[=]() { ChangeShaperoad(pl_num); });
      }
 }
+void ground::set_bridge()
+{
+     m_bridges[0] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[0]-> setGeometry(255+((4)*42.25), 97, 16, 16);
+     m_bridges[1] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[1]-> setGeometry(255+((5)*42.25), 97, 16, 16);
+     m_bridges[2] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[2]-> setGeometry(255+((4)*42.25), 171, 16, 16);
+     m_bridges[3] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[3]-> setGeometry(255+((5)*42.25), 171, 16, 16);
+     m_bridges[4] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[4]-> setGeometry(213+((0)*42.25), 171, 16, 16);
+     m_bridges[5] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[5]-> setGeometry(255+((8)*42.25), 97, 16, 16);
+     m_bridges[6] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[6]-> setGeometry(255+((9)*42.25), 97, 16, 16);
+     m_bridges[7] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[7]-> setGeometry(213+((-1)*42.25), 241, 16, 16);
+     m_bridges[8] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[8]-> setGeometry(213+((7)*42.25), 241, 16, 16);
+     m_bridges[9] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[9]-> setGeometry(213+((0)*42.25), 241, 16, 16);
+     m_bridges[10] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[10]-> setGeometry(171+((-1)*42.25), 314, 16, 16);
+     m_bridges[11] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[11]-> setGeometry(171+((0)*42.25), 314, 16, 16);
+     m_bridges[12] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[12]-> setGeometry(171+((9)*42.25), 314, 16, 16);
+     m_bridges[13] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[13]-> setGeometry(171+((13)*42.25), 314, 16, 16);
+     m_bridges[14] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[14]-> setGeometry(213+((12)*42.25), 241, 16, 16);
+     m_bridges[15] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[15]-> setGeometry(171+((-1)*42.25), 384, 16, 16);
+     m_bridges[16] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[16]-> setGeometry(171+((14)*42.25), 314, 16, 16);
+     m_bridges[17] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[17]-> setGeometry(171+((10)*42.25), 384, 16, 16);
+     m_bridges[18] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[18]-> setGeometry(171+((13)*42.25), 384, 16, 16);
+     m_bridges[19] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[19]-> setGeometry(171+((14)*42.25), 384, 16, 16);
+     m_bridges[20] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[20]-> setGeometry(213+((9)*42.25), 454, 16, 16);
+     m_bridges[21] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[21]-> setGeometry(213+((12)*42.25), 454, 16, 16);
+     m_bridges[22] = new roads(roads::thirtyNeg,roads::bridge,this);
+     m_bridges[22]-> setGeometry(213+((8)*42.25), 526, 16, 16);
+     m_bridges[23] = new roads(roads::thirtyNeg,roads::bridge,this);;
+     m_bridges[23]-> setGeometry(255+((6)*42.25), 600, 16, 16);
+     m_bridges[24] = new roads(roads::thirty,roads::bridge,this);
+     m_bridges[24]-> setGeometry(255+((7)*42.25), 600, 16, 16);
+     m_bridges[25] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[25]-> setGeometry(192+((0)*84.5), 207, 16, 16);
+     m_bridges[26] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[26]-> setGeometry(192+((1)*84.5), 207, 16, 16);
+     m_bridges[27] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[27]-> setGeometry(192+((2)*84.5), 207, 16, 16);
+     m_bridges[28] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[28]-> setGeometry(192+((3)*84.5), 207, 16, 16);
+     m_bridges[29] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[29]-> setGeometry(233+((5)*84.5), 133, 16, 16);
+     m_bridges[30] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[30]-> setGeometry(233+((-1)*84.5), 280, 16, 16);
+     m_bridges[31] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[31]-> setGeometry(233+((6)*84.5), 280, 16, 16);
+     m_bridges[32] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[32]-> setGeometry(192+((-1)*84.5), 350, 16, 16);
+     m_bridges[33] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[33]-> setGeometry(192+((7)*84.5), 350, 16, 16);
+     m_bridges[34] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[34]-> setGeometry(233+((5)*84.5), 421, 16, 16);
+     m_bridges[35] = new roads(roads::ninety,roads::bridge,this);
+     m_bridges[35]-> setGeometry(233+((6)*84.5), 421, 16, 16);
+
+     for (int id = 0; id < bridge_num; ++id)
+     {
+          m_bridges[id]->setStyleSheet("border:none;outline:none;color:white;font:bold;""font-size:25px;");
+          m_bridges[id]->setMinimumSize(QSize(50,80));
+          m_bridges[id]->setIconSize(QSize(130,93));
+     }
+}
 void ground::set_robber(int desert_num)
 {
     for(int i=0; i<hex_num; i++)

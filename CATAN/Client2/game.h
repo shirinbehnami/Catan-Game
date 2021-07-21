@@ -5,6 +5,8 @@
 #include <player.h>
 #include <iostream>
 #include <chart.h>
+#include <trade.h>
+
 class game:public QObject
 {
 Q_OBJECT
@@ -31,13 +33,12 @@ private:
     QPushButton* make_a_road;
     void set_house_maker();
     void set_road_maker();
-//---------------------
-
 
 private slots:
     void opening_turn_finish(int n);
-    void make_road(int n);
+    void make_road_opening(int n);
     void make_house();
+    void make_road();
 };
 
 #endif // GAME_H

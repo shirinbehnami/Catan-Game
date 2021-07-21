@@ -19,7 +19,8 @@ game::game(string s,Player* _p,int _cn,QObject *parent): QObject(parent)
     connect(g, &ground::turn_pressed, p,[&]() {p->set_my_turn(false);});
     connect(g, SIGNAL(obj_created(int)), p,SLOT(add_obj_to_msg(int)));
     connect(g,SIGNAL(roll_pressed(int)),p,SLOT(add_dice_to_msg(int)));
-    connect(make_a_house,SIGNAL(clicked),this,SLOT(make_house));
+    connect(make_a_road, &QPushButton::clicked, this,[&]() {make_road();});
+    connect(make_a_house, &QPushButton::clicked, this,[&]() {make_house();});
 }
 
 void game::show()
@@ -29,7 +30,7 @@ void game::show()
 
 void game::opening(int n)
 {
-    qDebug()<<"opening1";
+    //qDebug()<<"opening1";
 
     if(n==1)
         turn++;
@@ -55,7 +56,7 @@ void game::opening(int n)
                *c = connect(g, &ground::ColorShapenode, [this,c,n](){
                    QObject::disconnect(*c);
                    delete c;
-                   make_road(n);
+                   make_road_opening(n);
                });
 
           }
@@ -81,7 +82,7 @@ void game::opening(int n)
     }
 }
 
-void game::make_road(int n)
+void game::make_road_opening(int n)
 {
     g->disabel_nodes();
 
@@ -178,7 +179,7 @@ void game::play()
 int game::update_dice(QString s)
 {
     int x=s.toInt();
-    qDebug()<<x/10<<"-"<<x%10;
+    //qDebug()<<x/10<<"-"<<x%10;
     g->setdice(x/10,x%10);
     return x/10+x%10;
 }
@@ -196,10 +197,34 @@ void game::set_road_maker()
     make_a_road->setText("make a rode!");
     make_a_road->setStyleSheet("background-color:rgb(181,144,250);");
 }
+
 void game::make_house()
 {
     if(p->check_budget("house"))
+    {
+        p->pay("house");
         g->enabel_nodes();
-   // else
-       //QMessageBox::information(this, tr("error"),"your budget is not enugh.");
+
+    }
+    else
+      {
+        QMessageBox error;
+        error.setText("your budget is not enugh.");
+        error.exec();
+    }
+}
+void game::make_road()
+{
+    if(p->check_budget("road"))
+    {
+        p->pay("road");
+        g->enabel_roads();
+
+    }
+    else
+      {
+        QMessageBox error;
+        error.setText("your budget is not enugh.");
+        error.exec();
+    }
 }

@@ -25,7 +25,6 @@ void MainWindow::connection()
     QString input=ui->lineEdit->text();
     P->send(input);
     QString output = P->recieve();
-    qDebug()<<output;
 
     P->set_playernum(output.toInt());
 
@@ -69,7 +68,6 @@ void MainWindow::send_number_of_player()
     }
     else
     {
-        //input = "2";
         client_num = input.toInt();
         P->send(input);
         make_ground();
