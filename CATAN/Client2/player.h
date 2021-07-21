@@ -5,8 +5,10 @@
 #include<QTcpSocket>
 #include<QDebug>
 #include<QMainWindow>
-
-#include<card/card.h>
+#include <algorithm>
+#include <iostream>
+#include <card/card.h>
+class cards;
 
 class Player: public QObject
 {
@@ -38,6 +40,7 @@ public:
     void send_dice(){send(dice);}
 
     bool check_budget(QString structure);
+    void pay();
 
 private:
     QTcpSocket* socket;
@@ -49,6 +52,13 @@ private:
     QColor mycolor;
     QString dice;
     QMap<QString,QVector<cards*>> mycard;
+    std::map<QString,std::vector<QString>> costs={
+        {"house",{"sheep","wood","wheat","clay"}},
+        {"road",{"wood","clay"}},
+       // {"city",{}},
+       // {"bridge",{}},
+    //to be continiued...
+    };
 
     void updatecards();
 

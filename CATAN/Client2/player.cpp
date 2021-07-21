@@ -1,6 +1,7 @@
 #include "player.h"
 #include "card/card.h"
 
+
 #include <QApplication>
 
 Player::Player(QObject *parent) : QObject(parent)
@@ -134,7 +135,7 @@ bool Player::check_budget(QString structure)
     else if(structure=="road")
     {
         QString s="00";
-        QVector<cards*>v=mycard["house"];
+        QVector<cards*>v=mycard["road"];
         for(auto &p: v )
         {
             if(p->get_state()=="wood")
@@ -147,4 +148,11 @@ bool Player::check_budget(QString structure)
         return false;
     }
     //to be continiued...
+}
+void Player::pay()
+{
+   // if(s=="house")
+    {
+
+    }
 }

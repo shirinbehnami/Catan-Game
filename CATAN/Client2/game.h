@@ -22,6 +22,7 @@ private:
     ground* g;
     Player* p;
     chart* ch;
+    trade* Tr;
 
     int turn;
     int client_num;
