@@ -27,6 +27,10 @@ When you and your friends want to start catan, you should enter your name as fir
 ## How to use Catan game?
 The only thing you have to do, is to install boost library and install Qt,Then you can run  the program and have fun time with your friends:)<br /><br />
 ## Collaborators:
-**Narges Montazeri :** Email : Narges.montazeri81@gmail.com In Github : Narges-Mntzr.<br />
 **Shirin Behnami nia :** Email : hhagh2002@gmail.com In Github : shirinbehnami.<br />
-**Shakiba berenjkoub :** Email : shakibaberenjkoub@gmail.com In Github : shakibeBK.
+**Narges Montazeri :** Email : Narges.montazeri81@gmail.com In Github : Narges-Mntzr.<br />
+**Shakiba berenjkoub :** Email : shakibaberenjkoub@gmail.com In Github : shakibeBK.<br /><br /><br />
+
+<p align="center">
+  <img src="https://github.com/shirinbehnami/Catan-Game/blob/main/CATAN/Client2/image/Catan-Game.png" width="800" height="500" alt="accessibility text">
+</p>
